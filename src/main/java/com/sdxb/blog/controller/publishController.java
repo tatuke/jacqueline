@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,13 @@ public class publishController {
         model.addAttribute("tags",tags);
         return "publish";
     }
-
+@GetMapping("/publishnovel")
+public String publishnovel(Model model){
+    TagCache tagCache=new TagCache();
+    List<TagDto> tags = tagCache.gettags();
+    model.addAttribute("tags",tags);
+    return "publishnovel";
+}
     //发布问题
     @PostMapping("/publish")
     public String publishquestion(
@@ -82,11 +89,68 @@ public class publishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreateid(user.getId());
+        question.setId(id);
         question.setCreatetime(System.currentTimeMillis());
         if(id==-1){
             questionMapper.createquestion(question);
         }else {
-            question.setId(id);
+
+            questionMapper.updatequestion(question);
+        }
+        return "redirect:/index";
+    }
+    @PostMapping("/publishnovel")
+    public String publishnovel(
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("tag") String tag,
+            @RequestParam(value = "content_type",defaultValue = "2") int content_type,
+            @RequestParam(value = "id",defaultValue = "-2")int id,
+            HttpServletRequest request,
+            Model model
+    ) {
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
+        model.addAttribute("content_type", content_type);
+        //标签组
+        TagCache tagCache=new TagCache();
+        List<TagDto> tags = tagCache.gettags();
+        model.addAttribute("tags",tags);
+        //防止输入的问题为空
+        if (title == null || title == "") {
+            model.addAttribute("error", "标题不能为空");
+            return "publishnovel";
+        }
+        if (description == null || description == "") {
+            model.addAttribute("error", "描述不能为空");
+            return "publishnovel";
+        }
+        if (tag == null || tag == "") {
+            model.addAttribute("error", "标签不能为空");
+            return "publishnovel";
+        }
+        //获取当前登陆用户的信息
+        User user = null;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                String token = cookie.getValue();
+                user = userMapper.findBytoken(token);
+            }
+        }
+        //将问题上传到数据库
+        Question question = new Question();
+        question.setTitle(title);
+        question.setDescription(description);
+        question.setTag(tag);
+        question.setCreateid(user.getId());
+        question.setId(id);
+        question.setCreatetime(System.currentTimeMillis());
+        if(id==-2){
+            questionMapper.createnovel(question);
+        }else {
+
             questionMapper.updatequestion(question);
         }
         return "redirect:/index";

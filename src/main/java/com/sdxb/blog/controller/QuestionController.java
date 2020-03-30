@@ -57,6 +57,7 @@ public class QuestionController {
                 break;
             }
         }
+        //在java文件中定义的类Questionsdto,于QuestionService.java中，在questionController.java中控制转发,学习跳转到
         Questiondto questiondto=questionService.getbyid(id);
         //增加阅读数
         questionService.increaseview(id);

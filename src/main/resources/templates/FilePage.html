@@ -15,60 +15,30 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="/js/bootstrap.min.js"></script>
-<!--    <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>-->
+    <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-
-<script>
-$(function(){
-                $('#myCarousel').carousel({interval:4000});
-            })
- </script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/bootstrap.min.js"></script>
 
 </head>
 <body class="body">
 <!--导入navigation.html，内容是导航框-->
 <div th:insert="~{navigation :: copy}"></div>
 
-<div id="myCarousel" class="carousel slide">
-    <!-- 轮播（Carousel）指标 -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <!-- 轮播（Carousel）项目 -->
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="img/timg01.jpg" alt="First slide">
 
-        </div>
-        <div class="item" >
-            <img src="img/timg02.jpg" alt="Second slide">
-
-        </div>
-        <div class="item" >
-            <img src="img/timg03.jpg" alt="Third slide">
-
-        </div>
-    </div>
-    <!-- 轮播（Carousel）导航 -->
-    <a class="carousel-control left" href="#myCarousel"
-       data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myCarousel"
-       data-slide="next">&rsaquo;</a></div>
 <!--首页展示的发现部分-->
 <div class="container-fluid main">
-    <div class="row">
+    <div class="row" style="height: 200px">
         <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
-            <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现 </h2>
+            <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 文件列表 </h2>
             <hr>
             <!--分页展示内容-->
-            <div class="media" th:each="question:${pagination.data}" style="margin-top: 22px">
+            <div class="media" th:each="file:${pagination.data}" style="margin-top: 22px">
                 <div class="media-left">
-                    <a th:href="@{'/question/'+${question.id}}">
+                    <a th:href="@{'/file/'+${file.id}}">
                         <img class="media-object img-circle picset"
-                             th:src="${question.user.headpic}">
+                             th:src="${file.user.headpic}">
                     </a>
                 </div>
                 <div class="media-body">
@@ -112,27 +82,16 @@ $(function(){
             </nav>
         </div>
         <!--热门话题部分-->
-        <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12">
-            <h3>站长</h3>
-            <a href="https://github.com/OliverLiy">
-                <img class="adminicon" src="../img/GitHub.png">
-            </a>
-            <a href="https://im.qq.com/">
-                <img class="adminicon" src="../img/qq.jpg"/>
-            </a>
-            <a href="https://blog.csdn.net/qq_41973594">
-                <img class="adminicon" src="../img/csdn.jpg"/>
-            </a>
-            <hr>
-            <h3>热门话题</h3>
-            <ul class="list-group">
-                <li class="list-group-item"  th:each="question:${topquestion}">
-                    <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
-                </li>
-            </ul>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12" >
+            <h3>文件上传</h3>
+           <form action="fileupload" method="post" enctype="multipart/form-data">
+               <input type="file" name="fileName" alt="选择文件" style="width:180px; height:15px">
+           </form>
 
         </div>
     </div>
+
+
 </div>
 
 

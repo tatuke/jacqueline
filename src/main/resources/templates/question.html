@@ -15,6 +15,8 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
     <!--editor.md相关-->
     <link rel="stylesheet" href="/css/editormd.preview.css">
     <script src="/js/editormd.js"></script>
@@ -62,6 +64,15 @@
                    th:if="${session.user!=null && session.user.id==questionDto.createid}">
                 <span class="glyphicon glyphicon-pencil question-menu" aria-hidden="true">
                     编辑
+                </span>
+                </a>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
+                <!--删除-->
+                <!--这里应该把/publish/改掉改成执行删除的动作，这很明显是表示带参数的跳转-->
+                <a th:href="@{'/delete/'+${questionDto.id}}"
+                   th:if="${session.user!=null && session.user.id==questionDto.createid}">
+                <span class="glyphicon glyphicon-trash question-menu" aria-hidden="true">
+                    删除
                 </span>
                 </a>
             </div>
@@ -140,7 +151,7 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">
-                            <span th:text="${questionDto.user.name}"/>
+                            <span th:href="@{'/persondata/'+${questionDto.user.name}}" th:text="${questionDto.user.name}"/>
                         </h4>
                     </div>
                 </div>
@@ -158,8 +169,6 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/js/bootstrap.min.js"></script>
+
 </body>
 </html>

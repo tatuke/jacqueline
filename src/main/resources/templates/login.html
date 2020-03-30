@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link href="css/signin.css" rel="stylesheet">
 </head>
+<style>
+    body{
+        background-image: url("/img/daliyperson.jpg");
+    }
+</style>
 <body>
 <div class="container">
     <form class="form-signin" action="/logincheck" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="username" class="sr-only">Username</label>
-        <input type="username" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="email" class="sr-only">e-mail</label>
+        <input type="eamil" id="email" name="email" class="form-control" placeholder="邮箱" required autofocus>
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
         <div class="checkbox">

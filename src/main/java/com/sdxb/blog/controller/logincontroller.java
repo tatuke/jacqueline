@@ -27,9 +27,9 @@ public class logincontroller {
     public String checklogin(HttpServletRequest request, HttpServletResponse response) {
         //通过request获取输入的用户名和密码在数据库中查找相关用户，如果存在就登陆成功
         User user = new User();
-        String name = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
-        user.setName(name);
+        user.setEmail(email);
         user.setPassword(password);
         User newUser = userMapper.select(user);
         if (newUser != null) {

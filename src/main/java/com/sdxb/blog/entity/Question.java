@@ -1,5 +1,5 @@
 package com.sdxb.blog.entity;
-
+//实体类
 public class Question {
     private int id;
     private String title;

@@ -30,6 +30,7 @@ public class PersonalController {
     private NotificationService notificationService;
     @Resource
     private NotificationMapper notificationMapper;
+
     @GetMapping("/personal/{action}")
     public String personal(@PathVariable(name = "action")String action,
                            Model model,
@@ -56,7 +57,7 @@ public class PersonalController {
         }
         if (action.equals("questions")){
             model.addAttribute("section","questions");
-            model.addAttribute("sectionname","我的问题");
+            model.addAttribute("sectionname","我的问答");
             PageDto<Question> pagination=questionService.list(user.getId(),page,size);
             model.addAttribute("pagination", pagination);
         }else if (action.equals("information")){
@@ -68,5 +69,14 @@ public class PersonalController {
 
 
         return "personal";
+    }
+    @GetMapping("/persondata/{token}")
+    public String persondata(@PathVariable(name="token") String token,
+                             Model model) {
+
+        User user = userMapper.findBytoken(token);
+        model.addAttribute("user",user);
+
+        return "persondata";
     }
 }

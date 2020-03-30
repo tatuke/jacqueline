@@ -11,6 +11,7 @@ public class Questiondto {
     private int view_count;
     private int like_count;
     private String tag;
+    private int content_type;
     private long createtime;
     private User user;
 
@@ -92,5 +93,13 @@ public class Questiondto {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getContent_type() {
+        return content_type;
+    }
+
+    public void setContent_type(int content_type) {
+        this.content_type = content_type;
     }
 }

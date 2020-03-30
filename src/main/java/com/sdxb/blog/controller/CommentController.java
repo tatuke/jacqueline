@@ -3,16 +3,10 @@ package com.sdxb.blog.controller;
 import com.sdxb.blog.dto.CommentCreateDto;
 import com.sdxb.blog.dto.CommentDto;
 import com.sdxb.blog.dto.ResultDto;
-import com.sdxb.blog.entity.Comment;
-import com.sdxb.blog.entity.Notification;
-import com.sdxb.blog.entity.Question;
-import com.sdxb.blog.entity.User;
+import com.sdxb.blog.entity.*;
 import com.sdxb.blog.enums.NotificationStatusEnum;
 import com.sdxb.blog.enums.notificationEnum;
-import com.sdxb.blog.mapper.CommentMapper;
-import com.sdxb.blog.mapper.NotificationMapper;
-import com.sdxb.blog.mapper.QuestionMapper;
-import com.sdxb.blog.mapper.UserMapper;
+import com.sdxb.blog.mapper.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +26,7 @@ public class CommentController {
     private CommentMapper commentMapper;
     @Resource
     private QuestionMapper questionMapper;
+
     @Resource
     private NotificationMapper notificationMapper;
 
@@ -84,9 +79,11 @@ public class CommentController {
         }else {
             //把回复问题的通知插入数据库
             Question question=questionMapper.getbyId(commentCreateDto.getParent_id());
+
             Notification notification=new Notification();
             notification.setNotifier(user.getId());
             notification.setReceiver(question.getCreateid());
+
             notification.setOuterid(commentCreateDto.getParent_id());
             notification.setType(notificationEnum.NOTIFICATION_QUESTION.getType());
             notification.setCreatetime(System.currentTimeMillis());
@@ -94,6 +91,7 @@ public class CommentController {
             notificationMapper.insert(notification);
             //增加问题回复量
             questionMapper.updatecomment(commentCreateDto.getParent_id());
+
         }
         ResultDto resultDto=new ResultDto();
         return resultDto.success();

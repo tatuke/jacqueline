@@ -7,9 +7,10 @@ import java.util.List;
 
 @Mapper
 public interface QuestionMapper {
-    @Insert("insert into question(title,description,createid,tag,createtime) values (#{title},#{description},#{createid},#{tag},#{createtime})")
+    @Insert("insert into question(title,description,createid,content_type,tag,createtime) values (#{title},#{description},#{createid},1,#{tag},#{createtime})")
     void createquestion(Question question);
-
+    @Insert("insert into question(title,description,createid,content_type,tag,createtime) values (#{title},#{description},#{createid},2,#{tag},#{createtime})")
+    void createnovel(Question question);
     @Select("select * from question order by createtime desc limit #{offset},#{size} ")
     List<Question> list(@Param("offset") int offset, @Param("size") int size);
 
@@ -27,6 +28,8 @@ public interface QuestionMapper {
 
     @Update("update question set title=#{title},description=#{description},tag=#{tag},createtime=#{createtime} where id=#{id}")
     void updatequestion(Question question);
+    @Delete ("delete from question where id=#{id}")
+     void deletequestion(int id);
 
     @Update("update question set view_count=view_count+1 where id=#{id}")
     void updateView(int id);
