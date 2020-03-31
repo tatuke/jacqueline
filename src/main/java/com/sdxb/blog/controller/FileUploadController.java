@@ -56,28 +56,30 @@ public class FileUploadController {
         return "FilePage";
     }
 @GetMapping("/fileupload")
-    public String fileupload(@RequestParam("file") MultipartFile file,
+    public String fileupload(@RequestParam("sourcefile") MultipartFile sourcefile,
                              HttpServletRequest request,
                              Model model){
-        if((file.getOriginalFilename().isEmpty())){
+        if((sourcefile.getOriginalFilename().isEmpty())){
             model.addAttribute("error", "error");
             return "redirect:/FilePage";
         }else{
-            String fileName=file.getOriginalFilename();
+            String fileName=sourcefile.getOriginalFilename();
             String filepath="static/UploadFile";
             String Filesource= filepath+fileName;
             try {
-                FileUtil.uploadFile(file.getBytes(),filepath,fileName);
+                FileUtil.uploadFile(sourcefile.getBytes(),filepath,fileName);
                 User user =null;
                 Cookie[] cookies = request.getCookies();
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("token")) {
                         String token = cookie.getValue();
                         user = userMapper.findBytoken(token);
-                        user.setToken(token);
-
                     }
                 }
+               File file = new File();
+                file.setUser_name(user.getNickname());
+                file.setCreate_time(System.currentTimeMillis());
+
 
 
             }catch (Exception e){
