@@ -69,10 +69,20 @@ public class FileUploadController {
             try {
                 FileUtil.uploadFile(file.getBytes(),filepath,fileName);
                 User user =null;
+                Cookie[] cookies = request.getCookies();
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("token")) {
+                        String token = cookie.getValue();
+                        user = userMapper.findBytoken(token);
+                        user.setToken(token);
+
+                    }
+                }
 
 
+            }catch (Exception e){
             }
-
+               return  "sussess";
         }
 
 }
