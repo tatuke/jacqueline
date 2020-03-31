@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>进入首页</title>
+    <title>文档资源首页</title>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/index.css"/>
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
@@ -36,7 +36,7 @@
             <!--分页展示内容-->
             <div class="media" th:each="file:${pagination.data}" style="margin-top: 22px">
                 <div class="media-left">
-                    <a th:href="@{'/file/'+${file.id}}">
+                    <a th:href="@{'/persondata/'+${user.id}}">
                         <img class="media-object img-circle picset"
                              th:src="${file.user.headpic}">
                     </a>
@@ -44,12 +44,11 @@
                 <div class="media-body">
                     <span style="margin-top: 10px;">
                         <h4 class="media-heading" style="font-size: 17px;">
-                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                        <a th:href="@{'/file/'+${file.id}}" th:text="${file.file_name}"></a>
                         </h4>
                     </span>
-                    <span class="common-list"><span th:text="${question.comment_count}"/> 个评论 • <span
-                            th:text="${question.view_count}"/> 次浏览 • <span th:text="${question.like_count}"/>个点赞
-                        <span th:text="${#dates.format(question.createtime,'yyyy-MM-dd')}" style="float: right;"></span></span>
+                    <span class="common-list"><span th:text="${file.down}"/> 次下载 • <span th:text="${file.like_count}"/>个点赞
+                        <span th:text="${#dates.format(file.create_time,'yyyy-MM-dd')}" style="float: right;"></span></span>
                 </div>
             </div>
             <!--展示底部的页码-->
@@ -84,7 +83,7 @@
         <!--热门话题部分-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12" >
             <h3>文件上传</h3>
-           <form action="fileupload" method="post" enctype="multipart/form-data">
+           <form action="/fileupload" method="post" enctype="multipart/form-data">
                <input type="file" name="fileName" alt="选择文件" style="width:180px; height:15px">
            </form>
 

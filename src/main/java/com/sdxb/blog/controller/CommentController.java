@@ -125,4 +125,8 @@ public class CommentController {
         //返回数据给前端
         return resultDto.success(commentDto);
     }
+    //点赞功能
+//    @ResponseBody
+//    @RequestMapping(value="/like/{id}",method = RequestMethod.GET)
+
 }

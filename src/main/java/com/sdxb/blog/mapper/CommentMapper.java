@@ -29,4 +29,7 @@ public interface CommentMapper {
 
     @Select("select parent_id from comment where id=#{id}")
     int getparentidbyid(int id);
+    @Update("update comment set like_count=like_count+1 where id=#{id}")
+    void updatelike(int id);
+
 }

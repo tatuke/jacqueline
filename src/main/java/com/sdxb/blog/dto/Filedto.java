@@ -14,6 +14,7 @@ public class Filedto {
     private  String file_source;
     private String create_time;
     private  User User;
+    private int down;
 
     public int getId() {
         return id;
@@ -86,5 +87,13 @@ public class Filedto {
 
     public void setUser(com.sdxb.blog.entity.User user) {
         User = user;
+    }
+
+    public int getDown() {
+        return down;
+    }
+
+    public void setDown(int down) {
+        this.down = down;
     }
 }

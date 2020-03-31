@@ -70,6 +70,6 @@ pageDto.setData(filedtoList);
         filedto.setUser(user);
         return filedto;
     }
-//    public void increasedown(int id) {fileUploadMapper.updatedown(id);}
+   public void increasedown(int id) {fileUploadMapper.updatedown(id);}
 //    public List<File> getbytag(int id,String result) {return fileUploadMapper.getbytag(id,result);}
 }
