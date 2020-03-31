@@ -43,7 +43,7 @@ public class FileUploadController {
                 user = userMapper.findBytoken(token);
                 if (user != null) {
                     request.getSession().setAttribute("user", user);
-                    //看看这里用到 user能做什么
+                    //看看这里用到 user能做什么,可能这里还会用到；两次mapper
                 }
                 break;
             }
