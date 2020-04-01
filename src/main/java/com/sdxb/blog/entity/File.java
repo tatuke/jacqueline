@@ -11,18 +11,9 @@ public class File {
     private int file_permit;
     private String tag;
     private String file_source;
-    private String create_time;
+    private Long create_time;
 
-    public File(int id,String user_name,String description,String file_name,int file_permit,String tag,String file_source,String create_time) {
-        this.id=id;
-        this.user_name=user_name;
-        this.description=description;
-        this.file_name=file_name;
-        this.file_permit=file_permit;
-        this.tag=tag;
-        this.file_source=file_source;
-        this.create_time=create_time;
-    }
+
 public int getId(){
         return id;
 }
@@ -78,11 +69,11 @@ public void setId(int id){
     }
 
 
-    public String getCreate_time() {
+    public Long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
 }

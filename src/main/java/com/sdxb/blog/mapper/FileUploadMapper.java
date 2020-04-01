@@ -12,7 +12,7 @@ import java.util.List;
 //现在只包括插入和展示（全部）的语句
 @Mapper
 public interface FileUploadMapper {
-@Insert("insert into file(user_name,description,file_name,file_permit,tag,file_source) values(#{user_name},#{description},#{file_name},#{file_permit},#{tag},#{file_source})")
+@Insert("insert into file(user_name,description,file_name,file_permit,tag,file_source,create_time) values(#{user_name},#{description},#{file_name},#{file_permit},#{tag},#{file_source},#{create_time})")
     void uploadfile(File file);
     @Select("select * from file order by createtime desc limit #{offset},#{size} ")
     List<File> list(@Param("offset") int offset, @Param("size") int size);

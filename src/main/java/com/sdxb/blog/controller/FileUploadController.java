@@ -5,6 +5,7 @@ import com.sdxb.blog.Tools.FileUtil;
 import com.sdxb.blog.dto.Filedto;
 import com.sdxb.blog.entity.File;
 import com.sdxb.blog.entity.User;
+import com.sdxb.blog.mapper.FileUploadMapper;
 import com.sdxb.blog.mapper.UserMapper;
 import com.sdxb.blog.service.FileService;
 
@@ -26,6 +27,8 @@ public class FileUploadController {
     private FileService fileService;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private FileUploadMapper fileUploadMapper;
     //查看文件详情的请求（后续会包含权限的控制）
     @GetMapping("/file/{id}")
     public String file(@PathVariable(name = "id") int id,
@@ -43,20 +46,21 @@ public class FileUploadController {
                 user = userMapper.findBytoken(token);
                 if (user != null) {
                     request.getSession().setAttribute("user", user);
-                    //看看这里用到 user能做什么,可能这里还会用到；两次mapper
+
                 }
                 break;
             }
         }
-        Filedto filedto= fileService.getbyid(id);
-//        增加下载的数，此功能不能放在这个请求中，应该放在下载动作的请求中
-        fileService.increasedown(id);
-        model.addAttribute("fileDto",filedto);
+
         //展示相关的资源
         return "FilePage";
     }
 @GetMapping("/fileupload")
     public String fileupload(@RequestParam("sourcefile") MultipartFile sourcefile,
+                             @RequestParam("description") String description,
+                             @RequestParam("file_permit") int file_permit,
+                             @RequestParam("tag") String tag,
+                             @RequestParam(value = "id",defaultValue = "-1") int id,
                              HttpServletRequest request,
                              Model model){
         if((sourcefile.getOriginalFilename().isEmpty())){
@@ -66,20 +70,34 @@ public class FileUploadController {
             String fileName=sourcefile.getOriginalFilename();
             String filepath="static/UploadFile";
             String Filesource= filepath+fileName;
+
+
             try {
                 FileUtil.uploadFile(sourcefile.getBytes(),filepath,fileName);
                 User user =null;
+                File file= new File();
                 Cookie[] cookies = request.getCookies();
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("token")) {
                         String token = cookie.getValue();
                         user = userMapper.findBytoken(token);
+                        file.setUser_name(user.getNickname());
+                        file.setCreate_time(System.currentTimeMillis());
+                        file.setDescription(description);
+                        file.setFile_permit(file_permit);
+                        file.setTag(tag);
+                        file.setId(id);
+                        file.setFile_name(fileName);
+                        file.setFile_source(Filesource);
+                        fileUploadMapper.uploadfile(file);
+
                     }
                 }
-               File file = new File();
-                file.setUser_name(user.getNickname());
-                file.setCreate_time(System.currentTimeMillis());
 
+                Filedto filedto= fileService.getbyid(id);
+//        增加下载的数
+                fileService.increasedown(id);
+                model.addAttribute("fileDto",filedto);
 
 
             }catch (Exception e){
