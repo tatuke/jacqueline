@@ -32,7 +32,7 @@ public class indexController {
     @GetMapping("/index")
     public String index(HttpServletRequest request, Model model,
                         @RequestParam(name = "page", defaultValue = "1") int page,
-                        @RequestParam(name = "size", defaultValue = "10") int size) {
+                        @RequestParam(name = "size", defaultValue = "5") int size) {
         //查找cookies，观察是否有token存在
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
@@ -52,6 +52,8 @@ public class indexController {
                 break;
             }
         }
+
+
         PageDto pagination = questionService.list(page, size);
         model.addAttribute("pagination", pagination);
 

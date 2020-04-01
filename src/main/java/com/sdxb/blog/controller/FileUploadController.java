@@ -30,6 +30,7 @@ public class FileUploadController {
     @Resource
     private FileUploadMapper fileUploadMapper;
     //查看文件详情的请求（后续会包含权限的控制）
+    //否定，这里可以作为文件页的请求处理
     @GetMapping("/file/{id}")
     public String file(@PathVariable(name = "id") int id,
                        Model model,
@@ -102,7 +103,7 @@ public class FileUploadController {
 
             }catch (Exception e){
             }
-               return  "sussess";
+               return  "FilePage";
         }
 
 }
