@@ -3,6 +3,7 @@ package com.sdxb.blog.controller;
 
 import com.sdxb.blog.Tools.FileUtil;
 import com.sdxb.blog.dto.Filedto;
+import com.sdxb.blog.dto.PageDto;
 import com.sdxb.blog.entity.File;
 import com.sdxb.blog.entity.User;
 import com.sdxb.blog.mapper.FileUploadMapper;
@@ -12,6 +13,7 @@ import com.sdxb.blog.service.FileService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,8 +33,10 @@ public class FileUploadController {
     private FileUploadMapper fileUploadMapper;
     //查看文件详情的请求（后续会包含权限的控制）
     //否定，这里可以作为文件页的请求处理
-    @GetMapping("/file/{id}")
+    @GetMapping("/Filepage")
     public String file(@PathVariable(name = "id") int id,
+                       @RequestParam(name="page",defaultValue = "1") int page,
+                       @RequestParam(name= "size",defaultValue = "8") int size,
                        Model model,
                        HttpServletRequest request) {
 
@@ -53,10 +57,12 @@ public class FileUploadController {
             }
         }
 
-        //展示相关的资源
+        PageDto pagination = fileService.list(page, size);
+        model.addAttribute("pagination", pagination);
+
         return "FilePage";
     }
-@GetMapping("/fileupload")
+@PostMapping("/fileupload")
     public String fileupload(@RequestParam("sourcefile") MultipartFile sourcefile,
                              @RequestParam("description") String description,
                              @RequestParam("file_permit") int file_permit,
@@ -96,7 +102,7 @@ public class FileUploadController {
                 }
 
                 Filedto filedto= fileService.getbyid(id);
-//        增加下载的数
+//        增加下载的数,错了，这里是上传的窗口
                 fileService.increasedown(id);
                 model.addAttribute("fileDto",filedto);
 

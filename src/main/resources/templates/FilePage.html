@@ -4,22 +4,19 @@
 
 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>文档资源首页</title>
+
+    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <title>进入首页</title>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/index.css"/>
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="/js/bootstrap.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="js/bootstrap.min.js"></script>
 
 </head>
 <body class="body">
@@ -80,14 +77,32 @@
                 </ul>
             </nav>
         </div>
-        <!--热门话题部分-->
-        <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12" >
-            <h3>文件上传</h3>
-           <form action="/fileupload" method="post" enctype="multipart/form-data">
-               <input type="file" name="fileName" alt="选择文件" style="width:180px; height:15px">
-           </form>
+        <!--热门话题部分--> <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
+            <h4>问题发起人</h4>
+            <div class="media">
+                <div class="media-left">
+                    <h3>文件上传</h3>
+                          <form action="/fileupload" method="post" enctype="multipart/form-data">
+                                 <input type="file" name="fileName" alt="选择文件" style="width:180px; height:15px">
+                              <input type="submit">
+                          </form>
+                </div>
 
+            </div>
         </div>
+        <hr class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
+        <!--相关问题-->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
+            <h4>相关问题</h4>
+            <ul class="list-group">
+                <li class="list-group-item"  th:each="relative:${relativequestion}">
+                    <a th:href="@{'/question/'+${relative.id}}" th:text="${relative.title}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     </div>
 
 
