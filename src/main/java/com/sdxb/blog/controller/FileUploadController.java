@@ -10,6 +10,7 @@ import com.sdxb.blog.mapper.FileUploadMapper;
 import com.sdxb.blog.mapper.UserMapper;
 import com.sdxb.blog.service.FileService;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Kebote on 2020/3/22.
  */
+@Controller
 public class FileUploadController {
     @Resource
     private FileService fileService;
@@ -33,8 +35,8 @@ public class FileUploadController {
     private FileUploadMapper fileUploadMapper;
     //查看文件详情的请求（后续会包含权限的控制）
     //否定，这里可以作为文件页的请求处理
-    @GetMapping("/Filepage")
-    public String file(@PathVariable(name = "id") int id,
+    @GetMapping("/FilePage/{token}")
+    public String file(@PathVariable(name= "token") String token,
                        @RequestParam(name="page",defaultValue = "1") int page,
                        @RequestParam(name= "size",defaultValue = "8") int size,
                        Model model,
@@ -44,19 +46,9 @@ public class FileUploadController {
         if (cookies == null) {
             return "login";
         }
-        User user = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                user = userMapper.findBytoken(token);
-                if (user != null) {
-                    request.getSession().setAttribute("user", user);
-
-                }
-                break;
-            }
-        }
-
+//        获取携带的用户信息，以便做其他处理
+        User user = userMapper.findBytoken(token);
+        model.addAttribute("user",user);
         PageDto pagination = fileService.list(page, size);
         model.addAttribute("pagination", pagination);
 
@@ -72,7 +64,7 @@ public class FileUploadController {
                              Model model){
         if((sourcefile.getOriginalFilename().isEmpty())){
             model.addAttribute("error", "error");
-            return "redirect:/FilePage";
+            return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
             String filepath="static/UploadFile";
