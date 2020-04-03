@@ -144,3 +144,13 @@ function selectTag(e) {
         }
     }
 }
+function showselectpermission(){
+    $("#select-permits").show();
+}
+function selectPermit(e){
+    var value=e.getAttribute("allow-range");
+    //获取当前权限的范围
+    var pervious = $("#permit").val();
+    //不可添加新的权限范围，但可以试试添加特定的人或组织
+
+}

@@ -46,7 +46,7 @@ public String publishnovel(Model model){
 }
     //发布问题
     @PostMapping("/publish")
-//    requestparam设置接收
+
     public String publishquestion(
             @RequestParam("title") String title,
             @RequestParam("description") String description,
