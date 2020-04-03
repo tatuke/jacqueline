@@ -9,6 +9,7 @@ public class File {
     private String description;
     private String file_name;
     private int file_permit;
+    private int down;
     private String tag;
     private String file_source;
     private Long create_time;
@@ -75,5 +76,13 @@ public void setId(int id){
 
     public void setCreate_time(Long create_time) {
         this.create_time = create_time;
+    }
+
+    public int getDown() {
+        return down;
+    }
+
+    public void setDown(int down) {
+        this.down = down;
     }
 }

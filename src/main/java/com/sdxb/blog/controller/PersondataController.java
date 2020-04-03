@@ -43,7 +43,7 @@ public class PersondataController {
 
 
             String fileName = file.getOriginalFilename();
-            String filePath = "D:\\copyproject\\MyBlog\\src\\main\\resources\\static\\images\\personalimage";
+            String filePath = "D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\images\\personalimage\\";
             String headpic = filePath + fileName;
 
 

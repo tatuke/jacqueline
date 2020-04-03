@@ -1,9 +1,13 @@
 package com.sdxb.blog.controller;
 
 
+import com.sdxb.blog.Cache.PermitCache;
+import com.sdxb.blog.Cache.TagCache;
 import com.sdxb.blog.Tools.FileUtil;
 import com.sdxb.blog.dto.Filedto;
 import com.sdxb.blog.dto.PageDto;
+import com.sdxb.blog.dto.TagDto;
+import com.sdxb.blog.dto.permitDto;
 import com.sdxb.blog.entity.File;
 import com.sdxb.blog.entity.User;
 import com.sdxb.blog.mapper.FileUploadMapper;
@@ -21,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by Kebote on 2020/3/22.
@@ -62,12 +67,24 @@ public class FileUploadController {
                              @RequestParam(value = "id",defaultValue = "-1") int id,
                              HttpServletRequest request,
                              Model model){
+        model.addAttribute("description",description);
+        model.addAttribute("file_permit",file_permit);
+        model.addAttribute("tag",tag);
+        //标签组
+    TagCache tagCache=new TagCache();
+    List<TagDto> tags = tagCache.gettags();
+    model.addAttribute("tags",tags);
+       //权限组
+    PermitCache permitCache=new PermitCache();
+    List<permitDto> permits=permitCache.getpermits();
+    model.addAttribute("permits",permits);
+
         if((sourcefile.getOriginalFilename().isEmpty())){
             model.addAttribute("error", "error");
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="static/UploadFile";
+            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
