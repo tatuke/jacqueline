@@ -134,6 +134,31 @@
                             </div>
                         </div>
                     </div>
+                        <!--      权限页相关        -->
+                        <div class="form-group" >
+                            <label for="permit">添加标签</label>
+                            <input type="text" class="form-control" id="permit" autocomplete="off"
+                                   th:value="${file_permit}" name="file_permit" onclick="showselectpermission()">
+                        </div>
+                        <!--标签页-->
+                        <div id="select-permits" style="display: none">
+                            <ul class="nav nav-tabs" role="tablist">
+
+                                <li role="presentation" th:each="category,status:${tags}" th:class="${status.first ? 'active':''}">
+                                    <a th:href="@{'#'+${category.categoryname}}" aria-controls="home"
+                                       role="tab" data-toggle="tab" th:text="${category.categoryname}">
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content" style="padding-top: 15px;">
+                                <div role="tabpanel" th:each="category,status:${tags}"
+                                     th:class="${status.first ? 'active tab-pane':'tab-pane'}" th:id="${category.categoryname}">
+                            <span class="label label-info" onclick="selectTag(this)"
+                                  th:each="selecttags:${category.tags}" th:text="${selecttags}" th:data-tag="${selecttags}"></span>
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-success success" style="float: right">提交</button>
 
                           </form>
