@@ -33,11 +33,11 @@ public class indexController {
     public String index(HttpServletRequest request, Model model,
                         @RequestParam(name = "page", defaultValue = "1") int page,
                         @RequestParam(name = "size", defaultValue = "5") int size) {
-        //查找cookies，观察是否有token存在
+        //查找cookies，观察是否有token存在,不知道是不是这里导致没有token 无法跳转至首页
         Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            return "login";
-        }
+//        if (cookies == null) {
+//            return "login";
+//        }
         User user = null;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")) {

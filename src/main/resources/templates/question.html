@@ -125,12 +125,13 @@
                 </div>
             </div>
 
-            <!--回复框-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12" id="comment_section">
+            <!--回复框,这里也添加游客访问的功能-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12" id="comment_section" th:if="${session.user!=null}">
                 <div class="media" style="margin-bottom: 20px">
                     <div class="media-left">
                         <img class="media-object img-rounded picset"
-                             th:src="${session.user.headpic}">
+                         th:src="${session.user.headpic}">
+
                     </div>
                     <div class="media-body" style="padding-top:10px;">
                         <h4 class="media-heading">
@@ -138,6 +139,7 @@
                         </h4>
                     </div>
                 </div>
+
                 <input type="hidden" id="question_id" th:value="${questionDto.id}">
                 <textarea class="form-control" rows="6" style="margin-top:10px; margin-bottom: 10px;"
                           id="content"></textarea>
@@ -145,6 +147,11 @@
                         onclick="post()">提交
                 </button>
             </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12" id="before_login" th:if="${session.user==null}">
+            <div class="media" style="margin-bottom: 20px">
+                <span></span>
+            </div>
+        </div>
         </div>
         <!--右侧信息框-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12">
@@ -153,7 +160,8 @@
                 <div class="media">
                     <div class="media-left">
                         <img class="media-object img-circle picset"
-                             th:src="${session.user.headpic}">
+                             th:src="${questionDto.user.headpic}">
+
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">
