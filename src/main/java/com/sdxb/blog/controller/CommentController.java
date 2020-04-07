@@ -2,13 +2,17 @@ package com.sdxb.blog.controller;
 
 import com.sdxb.blog.dto.CommentCreateDto;
 import com.sdxb.blog.dto.CommentDto;
+import com.sdxb.blog.dto.Questiondto;
 import com.sdxb.blog.dto.ResultDto;
 import com.sdxb.blog.entity.*;
 import com.sdxb.blog.enums.NotificationStatusEnum;
 import com.sdxb.blog.enums.notificationEnum;
 import com.sdxb.blog.mapper.*;
+import com.sdxb.blog.service.CommentService;
+import jdk.nashorn.internal.objects.AccessorPropertyDescriptor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -26,6 +30,8 @@ public class CommentController {
     private CommentMapper commentMapper;
     @Resource
     private QuestionMapper questionMapper;
+    @Resource
+    private CommentService commentService;
 
     @Resource
     private NotificationMapper notificationMapper;
@@ -126,7 +132,20 @@ public class CommentController {
         return resultDto.success(commentDto);
     }
     //点赞功能
-//    @ResponseBody
-//    @RequestMapping(value="/like/{id}",method = RequestMethod.GET)
+//  @ResponseBody
+//   @RequestMapping(value="/like/{id}",method = RequestMethod.GET)
+    @GetMapping("/commentthumb/{id}")
+    public String Commentthumb(@PathVariable(name="id") int id,
+                            Model model
+    ){
+
+        CommentDto commentDto=commentService.singleID(id);
+        commentService.thumbUp(id);
+        //更新视图
+      model.addAttribute("commentDto",commentDto);
+        return "question";
+    }
+
+
 
 }

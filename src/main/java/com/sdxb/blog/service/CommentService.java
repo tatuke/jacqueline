@@ -2,8 +2,10 @@ package com.sdxb.blog.service;
 
 import com.sdxb.blog.dto.CommentDto;
 import com.sdxb.blog.entity.Comment;
+import com.sdxb.blog.entity.Question;
 import com.sdxb.blog.entity.User;
 import com.sdxb.blog.mapper.CommentMapper;
+import com.sdxb.blog.mapper.QuestionMapper;
 import com.sdxb.blog.mapper.UserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class CommentService {
     private CommentMapper commentMapper;
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private QuestionMapper questionMapper;
 
     public List<CommentDto> getByid(int id) {
         //通过文章id找到所有回复
@@ -35,5 +40,19 @@ public class CommentService {
             lists.add(commentDto);
         }
         return lists;
+    }
+//    这里是评论的点赞功能，但是应该不会用到
+    public void thumbUp(int id){commentMapper.thumbup(id);}
+    public CommentDto singleID(int id){
+        CommentDto commentdto=new CommentDto();
+        Comment comment= commentMapper.singleID(id);
+
+        //把第一个对象的所有属性拷贝到第二个对象中
+        BeanUtils.copyProperties(comment,commentdto);
+        Question question=questionMapper.getbyId(comment.getParent_id());
+        User user = userMapper.findById(question.getCreateid());
+ commentdto.setUser(user);
+        return commentdto;
+
     }
 }

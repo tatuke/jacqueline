@@ -78,4 +78,23 @@ public class QuestionController {
 
         return "question";
     }
+    @GetMapping("/thumb/{id}")
+    public String onlythumb(@PathVariable(name="id") int id,
+                            Model model
+    ){
+        Questiondto questiondto= questionService.getbyid(id);
+        questionService.increaselike(id);
+        //更新视图
+        model.addAttribute("questionDto",questiondto);
+        return "question";
+    }
+    @GetMapping("/nothumb/{id}")
+    public String cancelthumb(@PathVariable(name="id") int id,
+                              Model model
+                              ){
+        Questiondto questiondto=questionService.getbyid(id);
+        questionService.cancellike(id);
+        model.addAttribute("questionDto",questiondto);
+        return null;
+    }
 }

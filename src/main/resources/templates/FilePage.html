@@ -18,20 +18,6 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <!--editor.md相关-->
-    <link rel="stylesheet" href="/css/editormd.css">
-    <script src="/js/editormd.js"></script>
-    <!--editor.md相关-->
-    <script type="text/javascript">
-        $(function() {
-            var editor = editormd("file-des", {
-                width  : "100%",
-                height : 600,
-                path   : "/js/lib/",
-                watch : false
-            });
-        });
-    </script>
 
 
 </head>
@@ -49,7 +35,7 @@
             <!--分页展示内容-->
             <div class="media" th:each="file:${pagination.data}" style="margin-top: 22px">
                 <div class="media-left">
-                    <a th:href="@{'/persondata/'+${user.id}}">
+                    <a th:href="@{'/file/'+${file.id}}">
                         <img class="media-object img-circle picset"
                              th:src="${file.user.headpic}">
                     </a>
@@ -60,6 +46,7 @@
                         <a th:href="@{'/file/'+${file.id}}" th:text="${file.file_name}"></a>
                         </h4>
                     </span>
+
                     <span class="common-list"><span th:text="${file.down}"/> 次下载 • <span th:text="${file.like_count}"/>个点赞
                         <span th:text="${#dates.format(file.create_time,'yyyy-MM-dd')}" style="float: right;"></span></span>
                 </div>
@@ -100,14 +87,14 @@
                 <div class="media-left">
                     <h3>文件上传</h3>
                     <form action="/fileupload" method="post" enctype="multipart/form-data">
-                    <div>
+                    <div class="form-group" style="height: 30px">
 
-                                 <input type="file" name="sourcefile" alt="选择文件" style="width:180px; height:15px">
+                                 <input type="file" name="sourcefile" alt="选择文件" style="width:180px; height:30px">
                     </div>
-                              <div class="form-group" id="file-des">
+                              <div class="form-group">
                                   <label for="description">文件描述</label>
-                                  <textarea class="form-control" name="description" id="description" th:text="${description}"
-                                            cols="5" rows="5" style="display:none;"></textarea>
+                                  <input type="text"  name="description" id="description"
+                                         cols="5" rows="5">
                               </div>
                                   <!--      标签页相关        -->
                     <div class="form-group" >
@@ -136,26 +123,26 @@
                     </div>
                         <!--      权限页相关        -->
                         <div class="form-group" >
-                            <label for="permit">添加标签</label>
+                            <label for="permit">添加权限</label>
                             <input type="text" class="form-control" id="permit" autocomplete="off"
                                    th:value="${file_permit}" name="file_permit" onclick="showselectpermission()">
                         </div>
-                        <!--标签页-->
+                        <!--权限列表页-->
                         <div id="select-permits" style="display: none">
                             <ul class="nav nav-tabs" role="tablist">
 
-                                <li role="presentation" th:each="category,status:${tags}" th:class="${status.first ? 'active':''}">
-                                    <a th:href="@{'#'+${category.categoryname}}" aria-controls="home"
-                                       role="tab" data-toggle="tab" th:text="${category.categoryname}">
+                                <li role="presentation" th:each="category,status:${permits}" th:class="${status.first ? 'active':''}">
+                                    <a th:href="@{'#'+${category.permitListname}}" aria-controls="home"
+                                       role="tab" data-toggle="tab" th:text="${category.permitListname}">
                                     </a>
                                 </li>
 
                             </ul>
                             <div class="tab-content" style="padding-top: 15px;">
-                                <div role="tabpanel" th:each="category,status:${tags}"
-                                     th:class="${status.first ? 'active tab-pane':'tab-pane'}" th:id="${category.categoryname}">
-                            <span class="label label-info" onclick="selectTag(this)"
-                                  th:each="selecttags:${category.tags}" th:text="${selecttags}" th:data-tag="${selecttags}"></span>
+                                <div role="tabpanel" th:each="category,status:${permits}"
+                                     th:class="${status.first ? 'active tab-pane':'tab-pane'}" th:id="${category.permitListname}">
+                            <span class="label label-info" onclick="selectPermit(this)"
+                                  th:each="selectpermits:${category.permits}" th:text="${selectpermits}" th:data-tag="${selectpermits}"></span>
                                 </div>
                             </div>
                         </div>

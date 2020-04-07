@@ -33,6 +33,10 @@ public interface QuestionMapper {
 
     @Update("update question set view_count=view_count+1 where id=#{id}")
     void updateView(int id);
+    @Update("update question set like_count=like_count+1 where id=#{id}")
+    void updateLike(int id);
+    @Update("update question set like_count=like_count-1 where id=#{id}")
+    void cancelLike(int id);
 
     @Update("update question set comment_count=comment_count+1 where id=#{parent_id}")
     void updatecomment(int parent_id);

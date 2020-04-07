@@ -88,4 +88,6 @@ public class QuestionService {
         List<Question> questions=questionMapper.gettopten();
         return questions;
     }
+    public void increaselike(int id){questionMapper.updateLike(id);}
+    public void cancellike(int id){questionMapper.cancelLike(id);}
 }

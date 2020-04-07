@@ -14,12 +14,16 @@ public interface CommentMapper {
 
     @Select("select * from comment where parent_id=#{id} order by createtime desc")
     List<Comment> getByid(int id);
+    @Select("select * from comment where id=#{id}")
+ Comment singleID(int id);
 
     @Select("select * from comment where parent_id=#{id} and type=#{type} order by createtime desc")
     List<Comment> getCommentByid(@Param("id") int id, @Param("type") int type);
 
     @Update("update comment set commentcount=commentcount+1 where id=#{parent_id}")
     void updatecommentcount(int parent_id);
+    @Update("update comment set like_count=like_count+1 where id=#{id}")
+    void thumbup(int id);
 
     @Select("select * from comment where id=#{parent_id}")
     Comment getparentbyid(int parent_id);
@@ -29,7 +33,6 @@ public interface CommentMapper {
 
     @Select("select parent_id from comment where id=#{id}")
     int getparentidbyid(int id);
-    @Update("update comment set like_count=like_count+1 where id=#{id}")
-    void updatelike(int id);
+
 
 }

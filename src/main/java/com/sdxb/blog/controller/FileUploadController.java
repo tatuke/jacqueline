@@ -40,6 +40,34 @@ public class FileUploadController {
     private FileUploadMapper fileUploadMapper;
     //查看文件详情的请求（后续会包含权限的控制）
     //否定，这里可以作为文件页的请求处理
+    @GetMapping("/FilePage")
+    public String index(HttpServletRequest request, Model model,
+                        @RequestParam(name = "page", defaultValue = "1") int page,
+                        @RequestParam(name = "size", defaultValue = "5") int size) {
+        //查找cookies，观察是否有token存在
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return "login";
+        }
+        User user = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                String token = cookie.getValue();
+                user = userMapper.findBytoken(token);
+                if (user != null) {
+                    request.getSession().setAttribute("user", user);
+                    //获取未读的消息数量,无文件下载请求通知功能
+
+                }
+                break;
+            }
+        }
+
+
+        PageDto pagination = fileService.list(page, size);
+        model.addAttribute("pagination", pagination);
+        return "FilePage";
+    }
     @GetMapping("/FilePage/{token}")
     public String file(@PathVariable(name= "token") String token,
                        @RequestParam(name="page",defaultValue = "1") int page,
@@ -84,7 +112,7 @@ public class FileUploadController {
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
+            String filepath="D:\\copyproject\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
@@ -118,7 +146,7 @@ public class FileUploadController {
 
             }catch (Exception e){
             }
-               return  "FilePage";
+            return "redirect:/FilePage";
         }
 
 }
