@@ -75,7 +75,7 @@
                     删除
                 </span>
                 </a>
-<!--                不做问题的点赞只做文章的点赞-->
+<!--                不做问题的点赞只做文章的点赞，并不能实现-->
                 <a th:href="@{'/thumb/'+${questionDto.id}}"
                    th:if="${session.user!=null && session.user.id!=questionDto.createid && questionDto.content_type!=1}">
                     <span class="glyphicon glyphicon-thumbs-up question-menu" aria-hidden="true">

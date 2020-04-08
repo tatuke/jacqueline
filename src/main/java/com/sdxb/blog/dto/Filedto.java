@@ -13,8 +13,8 @@ public class Filedto {
     private  int file_permit;
     private  String tag;
     private  String file_source;
-    private String create_time;
-    private  User User;
+    private long create_time;
+    private  User user;
     private int down;
 
     public int getId() {
@@ -73,21 +73,21 @@ public class Filedto {
         this.file_source = file_source;
     }
 
-    public String getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
 
     public User getUser() {
-        return User;
+        return user;
     }
 
     public void setUser(User user) {
-        User = user;
+        this.user = user;
     }
 
     public int getDown() {

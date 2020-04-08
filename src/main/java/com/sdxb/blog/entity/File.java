@@ -12,7 +12,7 @@ public class File {
     private int down;
     private String tag;
     private String file_source;
-    private Long create_time;
+    private long create_time;
 
 
 public int getId(){
@@ -70,7 +70,7 @@ public void setId(int id){
     }
 
 
-    public Long getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 

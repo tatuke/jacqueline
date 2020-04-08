@@ -35,10 +35,10 @@
             <!--分页展示内容-->
             <div class="media" th:each="file:${pagination.data}" style="margin-top: 22px">
                 <div class="media-left">
-                    <a th:href="@{'/file/'+${file.id}}">
+
                         <img class="media-object img-circle picset"
                              th:src="${file.user.headpic}">
-                    </a>
+
                 </div>
                 <div class="media-body">
                     <span style="margin-top: 10px;">
@@ -81,7 +81,7 @@
             </nav>
         </div>
         <!--文件上传界面-->
-        <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12" th:if="${session.user != null}">
         <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
             <h4>上传界面</h4>
             <div class="media">
