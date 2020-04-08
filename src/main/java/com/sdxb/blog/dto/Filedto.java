@@ -1,5 +1,6 @@
 package com.sdxb.blog.dto;
 
+import com.sdxb.blog.entity.User;
 /**
  * Created by Kebote on 2020/3/23.
  */
@@ -81,11 +82,11 @@ public class Filedto {
     }
 
 
-    public com.sdxb.blog.entity.User getUser() {
+    public User getUser() {
         return User;
     }
 
-    public void setUser(com.sdxb.blog.entity.User user) {
+    public void setUser(User user) {
         User = user;
     }
 

@@ -80,9 +80,10 @@
                 </ul>
             </nav>
         </div>
-        <!--热门话题部分--> <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12">
+        <!--文件上传界面-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-ss-12">
         <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
-            <h4>问题发起人</h4>
+            <h4>上传界面</h4>
             <div class="media">
                 <div class="media-left">
                     <h3>文件上传</h3>
@@ -157,7 +158,7 @@
         <hr class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
         <!--相关问题-->
         <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
-            <h4>相关问题</h4>
+            <h4>相关文件</h4>
             <ul class="list-group">
                 <li class="list-group-item"  th:each="relative:${relativequestion}">
                     <a th:href="@{'/question/'+${relative.id}}" th:text="${relative.title}"></a>

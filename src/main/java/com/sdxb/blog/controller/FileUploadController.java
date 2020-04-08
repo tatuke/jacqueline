@@ -46,9 +46,9 @@ public class FileUploadController {
                         @RequestParam(name = "size", defaultValue = "5") int size) {
         //查找cookies，观察是否有token存在
         Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            return "login";
-        }
+//        if (cookies == null) {
+//            return "login";
+//        }
         User user = null;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")) {
@@ -112,7 +112,7 @@ public class FileUploadController {
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="D:\\copyproject\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
+            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
