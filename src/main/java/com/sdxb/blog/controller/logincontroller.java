@@ -3,6 +3,7 @@ package com.sdxb.blog.controller;
 import com.sdxb.blog.entity.User;
 import com.sdxb.blog.mapper.UserMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -24,7 +25,9 @@ public class logincontroller {
     }
 
     @PostMapping("/logincheck")
-    public String checklogin(HttpServletRequest request, HttpServletResponse response) {
+    public String checklogin(HttpServletRequest request,
+
+                             HttpServletResponse response) {
         //通过request获取输入的用户名和密码在数据库中查找相关用户，如果存在就登陆成功
         User user = new User();
         String email = request.getParameter("email");
@@ -37,6 +40,8 @@ public class logincontroller {
             response.addCookie(new Cookie("token", token));
         } else {
             //登陆失败，重新登陆
+            //这是springboot的标准警告范式
+//            model.addAttribute("error","帐号或密码错误");
         }
         return "redirect:/index";
     }
