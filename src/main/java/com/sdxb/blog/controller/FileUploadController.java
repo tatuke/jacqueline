@@ -26,6 +26,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -166,6 +168,11 @@ public class FileUploadController {
 //    下载业务模块
     File file= fileUploadMapper.pullfile(id);
     String fileName = file.getFile_name();
+    String path = file.getFile_source();
+    InputStream inputStream =new FileInputStream(new File(path + fileName));
+    if(inputStream==null){
+        throw new ZDYException(ErrorCode.ERR_NOT_FILE);
+    }
 
 }
 }
