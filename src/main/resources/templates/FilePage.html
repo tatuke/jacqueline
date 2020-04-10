@@ -19,7 +19,11 @@
     <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-
+<style>
+    .d-button :hover{
+        background-color: #00FF00;
+    }
+</style>
 </head>
 <body class="body">
 <!--导入navigation.html，内容是导航框-->
@@ -34,21 +38,23 @@
             <hr>
             <!--分页展示内容-->
             <div class="media" th:each="file:${pagination.data}" style="margin-top: 22px">
-                <div class="media-left">
+<!--                <div class="media-left">-->
 
-                        <img class="media-object img-circle picset"
-                             th:src="${file.user.headpic}">
+<!--                    -->
 
-                </div>
+<!--                </div>-->
                 <div class="media-body">
                     <span style="margin-top: 10px;">
                         <h4 class="media-heading" style="font-size: 17px;">
                         <a th:href="@{'/file/'+${file.id}}" th:text="${file.file_name}"></a>
+                            <a> <span class="glyphicon glyphicon-download d-button" style=" float: right;size: A4"> </span> </a>
                         </h4>
                     </span>
 
-                    <span class="common-list"><span th:text="${file.down}"/> 次下载 • <span th:text="${file.like_count}"/>个点赞
-                        <span th:text="${#dates.format(file.create_time,'yyyy-MM-dd')}" style="float: right;"></span></span>
+                    <span class="common-list"><span th:text="${file.down}"/> 次下载 •
+                        上传者：<span th:text="${file.user_name}"/>
+
+                        <span th:text="${#dates.format(file.create_time,'yyyy-MM-dd')}" style="float: right"></span></span>
                 </div>
             </div>
             <!--展示底部的页码-->

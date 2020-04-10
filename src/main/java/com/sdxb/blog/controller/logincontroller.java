@@ -39,9 +39,7 @@ public class logincontroller {
             String token = newUser.getToken();
             response.addCookie(new Cookie("token", token));
         } else {
-            //登陆失败，重新登陆
-            //这是springboot的标准警告范式
-//            model.addAttribute("error","帐号或密码错误");
+           return "/login";
         }
         return "redirect:/index";
     }

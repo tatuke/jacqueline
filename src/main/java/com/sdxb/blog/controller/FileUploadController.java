@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -148,6 +149,23 @@ public class FileUploadController {
             }
             return "redirect:/FilePage";
         }
+
+}
+@GetMapping("/downloadFile/{id}")
+    public String download(@PathVariable(name="id") int id,
+                           Model model,
+                           HttpServletRequest request,
+                           HttpServletResponse response
+                           ){
+        //应当先获取用户的身份标识信息，与权限信息比对
+    Cookie[] cookies = request.getCookies();
+    if(cookies==null){
+        return "login";
+    }
+//用户鉴别模块（先略）
+//    下载业务模块
+    File file= fileUploadMapper.pullfile(id);
+    String fileName = file.getFile_name();
 
 }
 }

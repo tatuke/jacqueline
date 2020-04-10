@@ -1,0 +1,86 @@
+字典表：
+gl_product_dict(产品字典表父表)
+dict_id -- "ID"
+dict_name -- "字典名称"
+dict_type -- "字典类型"
+dict_remark -- "字典描述"
+is_effective -- "状态"
+is_enabled -- "有效标识"
+create_user_id -- "创建人"
+create_time -- "创建时间"
+modify_user_id -- "修改人"
+modify_time -- "修改时间"
+
+gl_product_dict_detail(产品字典表子表)
+dict_detail_id -- "ID"
+dict_id -- "父表ID"
+dict_detail_name -- "字典参数"
+dict_detail_value -- "参数键值"
+dict_detail_remark -- "参数描述"
+dict_detail_number -- "排列序号"
+is_effective -- "状态"
+create_user_id -- "创建人"
+create_time -- "创建时间"
+modify_user_id -- "修改人"
+modify_time -- "修改时间"
+
+sys_group_dict(集团字典父表)
+dict_id -- "ID"
+dict_name -- "字典名称"
+dict_remark -- "字典描述"
+is_effective -- "状态"
+is_enabled -- "有效标识"
+group_id -- "授权的事务所(集团)"
+create_user_id -- "创建人"
+create_time -- "创建时间"
+modify_user_id -- "修改人"
+modify_time -- "修改时间"
+
+sys_group_dict_detail(集团字典子表)
+dict_detail_id -- "ID"
+dict_id -- "父表ID"
+dict_detail_name -- "字典参数"
+dict_detail_value -- "参数键值"
+dict_detail_remark -- "参数描述"
+dict_detail_number -- "排列序号"
+is_effective -- "状态"
+group_id -- "授权的事务所(集团)"
+create_user_id -- "创建人"
+create_time -- "创建时间"
+modify_user_id -- "修改人"
+modify_time -- "修改时间"
+
+底稿优化
+historic_sheet_example(历史底稿实例)
+entity_id -- "实例ID"
+project_id -- "项目ID"
+business_id -- "业务ID"
+task_id -- "任务ID"
+his_entity_id -- "历史底稿实例"
+group_id -- "授权的事务所"
+create_user_id -- "创建人"
+create_time -- "创建时间"
+
+数据源采集：
+data_source_define(数据源定义表)
+data_define_id -- "数据定义ID"
+customer_id -- "客户ID"
+borg_id -- "客户机构"
+period_id -- "暑期期间"
+data_source_type -- "数据源类型"
+group_id -- "集团"
+is_effective -- "状态"
+create_user_id -- "创建人"
+create_time -- "创建时间"
+
+
+voucher_detail
+
+
+事务所运维端基础字典维护（pt_dict）
+事务所项目端业务字典维护（bs_dict）
+
+折旧/摊销期限和使用年限设置为int
+这里面的使用部门？group_id
+增加类型：increase_type
+
