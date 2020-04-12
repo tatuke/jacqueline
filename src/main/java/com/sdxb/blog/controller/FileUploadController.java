@@ -14,6 +14,7 @@ import com.sdxb.blog.mapper.FileUploadMapper;
 import com.sdxb.blog.mapper.UserMapper;
 import com.sdxb.blog.service.FileService;
 
+import com.sun.javaws.exceptions.ErrorCodeResponseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -115,36 +115,32 @@ public class FileUploadController {
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
+            String filepath="D:\\copyproject\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
             try {
                 FileUtil.uploadFile(sourcefile.getBytes(),filepath,fileName);
                 User user =null;
-                File file= new File();
+                File sourefile= new File();
                 Cookie[] cookies = request.getCookies();
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("token")) {
                         String token = cookie.getValue();
                         user = userMapper.findBytoken(token);
-                        file.setUser_name(user.getNickname());
-                        file.setCreate_time(System.currentTimeMillis());
-                        file.setDescription(description);
-                        file.setFile_permit(file_permit);
-                        file.setTag(tag);
-                        file.setId(id);
-                        file.setFile_name(fileName);
-                        file.setFile_source(Filesource);
-                        fileUploadMapper.uploadfile(file);
+                        sourefile.setUser_name(user.getNickname());
+                        sourefile.setCreate_time(System.currentTimeMillis());
+                        sourefile.setDescription(description);
+                        sourefile.setFile_permit(file_permit);
+                        sourefile.setTag(tag);
+                        sourefile.setId(id);
+                        sourefile.setFile_name(fileName);
+                        sourefile.setFile_source(Filesource);
+                        fileUploadMapper.uploadfile(sourefile);
 
                     }
                 }
 
-                Filedto filedto= fileService.getbyid(id);
-//        增加下载的数,错了，这里是上传的窗口
-                fileService.increasedown(id);
-                model.addAttribute("fileDto",filedto);
 
 
             }catch (Exception e){
@@ -158,21 +154,69 @@ public class FileUploadController {
                            Model model,
                            HttpServletRequest request,
                            HttpServletResponse response
-                           ){
+                           ) throws Exception{
         //应当先获取用户的身份标识信息，与权限信息比对
     Cookie[] cookies = request.getCookies();
     if(cookies==null){
         return "login";
     }
 //用户鉴别模块（先略）
+    //增加下载数
+    Filedto filedto= fileService.getbyid(id);
+
+    fileService.increasedown(id);
+    model.addAttribute("fileDto",filedto);
 //    下载业务模块
     File file= fileUploadMapper.pullfile(id);
     String fileName = file.getFile_name();
     String path = file.getFile_source();
-    InputStream inputStream =new FileInputStream(new File(path + fileName));
-    if(inputStream==null){
-        throw new ZDYException(ErrorCode.ERR_NOT_FILE);
-    }
+    InputStream inputStream =new FileInputStream(path);
 
+//    if(inputStream==null){
+//        throw new ZDYException(ErrorCode.ERR_NOT_FILE);
+//    }
+//这里标识接受未知的文件类型。
+    response.setHeader("conyent-type","application/octet-stream");
+    response.setContentType("application/octet-stream");
+    try{
+        String name=java.net.URLEncoder.encode(fileName,"UTF-8");
+        response.setHeader("Content-Disposition","attachment;filename="+name);
+    }catch (UnsupportedEncodingException e2){
+        e2.printStackTrace();
+    }
+byte[] buff=new byte[1024];
+    BufferedInputStream bis =null;
+    OutputStream os=null;
+    try {
+        os = response.getOutputStream();
+        bis=new BufferedInputStream(inputStream);
+        int i = bis.read(buff);
+        while(i != -1){
+            os.write(buff,0,buff.length);
+            os.flush();
+            i = bis.read(buff);
+        }
+
+    }catch (FileNotFoundException e1){
+        //e1,getMessages()+"系统找不到指定的文件"
+//        需要自定义异常处理机制
+//        throw new MXYException(ErrorCode.ERR_NOT_FILE);或直接用e.printStackTrace()
+        e1.printStackTrace();
+    }catch (IOException e){
+        e.printStackTrace();
+    }finally {
+        if (bis!= null){
+//            控制台输出
+            System.out.println("---file download--"+fileName);
+            try{
+                bis.close();
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+    return "redirect:/FilePage";
 }
 }

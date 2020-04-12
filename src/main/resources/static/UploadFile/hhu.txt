@@ -1,0 +1,25 @@
+一个输出的典型
+public interface animal{
+public ...
+
+user.java
+(重写animal内的方法等)
+public class user implements animal {
+
+关于集合的对象
+服务 bin 批处理文件
+
+今天的练习主要关于是类与对象还有，关于集合的对象
+
+
+项目步骤：
+创建mybatis项目时是作为maven项目的，所以每创建一个maven项目，需要重新配置那些maven的配置文件相关。
+
+mysqld –defaults-file=”D:\mysql-8.0.18-winx64\mysql-8.0.18-winx64\my.ini” –init-file=”D:\mysql-8.0.18-winx64\mysql-ini.txt”
+
+
+
+
+
+#myCarousel .carousel-inner .item{
+  background-size:cover ;

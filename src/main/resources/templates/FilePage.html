@@ -46,11 +46,11 @@
                 <div class="media-body">
                     <span style="margin-top: 10px;">
                         <h4 class="media-heading" style="font-size: 17px;">
-                        <a th:href="@{'/file/'+${file.id}}" th:text="${file.file_name}"></a>
-                            <a> <span class="glyphicon glyphicon-download d-button" style=" float: right;size: A4"> </span> </a>
+                        <a th:text="${file.file_name}"></a>
+                            <a th:href="@{'/downloadFile/'+${file.id}}"> <span class="glyphicon glyphicon-download d-button"  aria-hidden="true" style=" float: right;size: A4"> </span> </a>
                         </h4>
                     </span>
-
+                    <span><p th:text="${file.description}" style="font-size: 12px; color: #9d9d9d"></p></span>
                     <span class="common-list"><span th:text="${file.down}"/> 次下载 •
                         上传者：<span th:text="${file.user_name}"/>
 
@@ -99,9 +99,9 @@
                                  <input type="file" name="sourcefile" alt="选择文件" style="width:180px; height:30px">
                     </div>
                               <div class="form-group">
-                                  <label for="description">文件描述</label>
+                                  <label for="tag">文件描述</label>
                                   <input type="text"  name="description" id="description"
-                                         cols="5" rows="5">
+                                         cols="5" rows="5" placeholder="简单的描述一下..">
                               </div>
                                   <!--      标签页相关        -->
                     <div class="form-group" >

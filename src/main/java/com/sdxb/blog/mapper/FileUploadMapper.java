@@ -24,7 +24,7 @@ public interface FileUploadMapper {
     List<File> listbyname(@Param("name") String name, @Param("offset") int offset, @Param("size") int size);
     @Select("select * from file where id=#{id}")
     File getbyId(int id);
-    @Update("update file set down=down+1 where id=#{id} ")
+    @Update("update file set down=down+1 where id=#{id}")
     void updatedown(int id);
     @Select("select * from file where id=#{id}")
     File pullfile(int id);
