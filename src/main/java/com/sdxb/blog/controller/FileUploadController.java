@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kebote on 2020/3/22.
@@ -115,7 +116,7 @@ public class FileUploadController {
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="D:\\copyproject\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
+            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
@@ -153,69 +154,85 @@ public class FileUploadController {
     public String download(@PathVariable(name="id") int id,
                            Model model,
                            HttpServletRequest request,
+                           Map<String,Object> map,
                            HttpServletResponse response
                            ) throws Exception{
         //应当先获取用户的身份标识信息，与权限信息比对
+    User user = null;
     Cookie[] cookies = request.getCookies();
     if(cookies==null){
         return "login";
     }
-//用户鉴别模块（先略）
-    //增加下载数
-    Filedto filedto= fileService.getbyid(id);
+//用户鉴别模块
+    for(Cookie cookie : cookies){
+        if(cookie.getName().equals("token")){
+            String token = cookie.getValue();
+            user = userMapper.findBytoken(token);
+            File file= fileUploadMapper.pullfile(id);
+            if((user != null && file.getFile_permit()== 1) || (file.getFile_permit()== 2 && user.getGroup_name().equals(userMapper.groupByname(file.getUser_name()) ) )){
+                //增加下载数
+                Filedto filedto= fileService.getbyid(id);
 
-    fileService.increasedown(id);
-    model.addAttribute("fileDto",filedto);
+                fileService.increasedown(id);
+                model.addAttribute("fileDto",filedto);
 //    下载业务模块
-    File file= fileUploadMapper.pullfile(id);
-    String fileName = file.getFile_name();
-    String path = file.getFile_source();
-    InputStream inputStream =new FileInputStream(path);
+
+                String fileName = file.getFile_name();
+                String path = file.getFile_source();
+                InputStream inputStream =new FileInputStream(path);
 
 //    if(inputStream==null){
 //        throw new ZDYException(ErrorCode.ERR_NOT_FILE);
 //    }
 //这里标识接受未知的文件类型。
-    response.setHeader("conyent-type","application/octet-stream");
-    response.setContentType("application/octet-stream");
-    try{
-        String name=java.net.URLEncoder.encode(fileName,"UTF-8");
-        response.setHeader("Content-Disposition","attachment;filename="+name);
-    }catch (UnsupportedEncodingException e2){
-        e2.printStackTrace();
-    }
-byte[] buff=new byte[1024];
-    BufferedInputStream bis =null;
-    OutputStream os=null;
-    try {
-        os = response.getOutputStream();
-        bis=new BufferedInputStream(inputStream);
-        int i = bis.read(buff);
-        while(i != -1){
-            os.write(buff,0,buff.length);
-            os.flush();
-            i = bis.read(buff);
-        }
+                response.setHeader("conyent-type","application/octet-stream");
+                response.setContentType("application/octet-stream");
+                try{
+                    String name=java.net.URLEncoder.encode(fileName,"UTF-8");
+                    response.setHeader("Content-Disposition","attachment;filename="+name);
+                }catch (UnsupportedEncodingException e2){
+                    e2.printStackTrace();
+                }
+                byte[] buff=new byte[1024];
+                BufferedInputStream bis =null;
+                OutputStream os=null;
+                try {
+                    os = response.getOutputStream();
+                    bis=new BufferedInputStream(inputStream);
+                    int i = bis.read(buff);
+                    while(i != -1){
+                        os.write(buff,0,buff.length);
+                        os.flush();
+                        i = bis.read(buff);
+                    }
 
-    }catch (FileNotFoundException e1){
-        //e1,getMessages()+"系统找不到指定的文件"
+                }catch (FileNotFoundException e1){
+                    //e1,getMessages()+"系统找不到指定的文件"
 //        需要自定义异常处理机制
 //        throw new MXYException(ErrorCode.ERR_NOT_FILE);或直接用e.printStackTrace()
-        e1.printStackTrace();
-    }catch (IOException e){
-        e.printStackTrace();
-    }finally {
-        if (bis!= null){
+                    e1.printStackTrace();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }finally {
+                    if (bis!= null){
 //            控制台输出
-            System.out.println("---file download--"+fileName);
-            try{
-                bis.close();
+                        System.out.println("---file download--"+fileName);
+                        try{
+                            bis.close();
 
-            }catch (IOException e){
-                e.printStackTrace();
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+
+            }else{
+             //没有权限下载
+                map.put("msg","你没有权限下载此文件");
+                return "/FilePage";
             }
         }
-
     }
     return "redirect:/FilePage";
 }

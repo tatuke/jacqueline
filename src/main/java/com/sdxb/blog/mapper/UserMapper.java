@@ -27,4 +27,6 @@ public interface UserMapper {
     User findByUId(int id);
     @Select("select * from user where name=#{user_name}")
     User findByName(String user_name);
+    @Select("select group_name from user where name=#{user_name}")
+    User groupByname(String user_name);
 }
