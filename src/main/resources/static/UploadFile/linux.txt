@@ -1,0 +1,14 @@
+GNU bash, version 4.2.24(1)-release (i686-pc-linux-gnu)
+These shell commands are defined internally.  Type `help' to see this list.
+Type `help name' to find out more about the function `name'.
+Use `info bash' to find out more about the shell in general.
+Use `man -k' or `info' to find out more about commands not in this list.
+
+ubuntu 12.04进入root权限：
+sudo su
+当root有密码时输入密码即可
+修改root密码
+sudo passwd root
+然后
+su
+进入root shell

@@ -47,7 +47,7 @@
                     <span style="margin-top: 10px;">
                         <h4 class="media-heading" style="font-size: 17px;">
                         <a th:text="${file.file_name}"></a>
-                            <a th:href="@{'/downloadFile/'+${file.id}}"> <span class="glyphicon glyphicon-download d-button"  aria-hidden="true" style=" float: right;size: A4"> </span> </a>
+                            <a  th:if="${(file.file_permit==1 && session.user!=null) || (file.file_permit==2 && session.user.group_name.equals(user.))}" th:href="@{'/downloadFile/'+${file.id}}"> <span class="glyphicon glyphicon-download d-button"  aria-hidden="true" style=" float: right;size: A4"> </span> </a>
                         </h4>
                     </span>
                     <span><p th:text="${file.description}" style="font-size: 12px; color: #9d9d9d"></p></span>
@@ -58,6 +58,7 @@
                 </div>
             </div>
             <!--展示底部的页码-->
+<!--            这里面需要修改一下，因为这里面还都是index的内容-->
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pagination.showfirst}">
