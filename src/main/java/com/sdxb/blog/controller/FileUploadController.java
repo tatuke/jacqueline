@@ -116,7 +116,7 @@ public class FileUploadController {
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
+            String filepath="D:\\copyproject\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
@@ -135,16 +135,17 @@ public class FileUploadController {
                         sourefile.setFile_permit(file_permit);
                         sourefile.setTag(tag);
                         sourefile.setId(id);
+                        sourefile.setGroup_name(user.getGroup_name());
                         sourefile.setFile_name(fileName);
                         sourefile.setFile_source(Filesource);
                         fileUploadMapper.uploadfile(sourefile);
-                        if(sourefile.getFile_permit()==2){
-                            File file =null;
-                            file=fileUploadMapper.findBypermit(file_permit);
-                            file.setGroup_name(user.getGroup_name());
-//                            其实到上一步把整个判断结构放在fileUploadMapper.uploadfile(sourcefile);的前面应当也可以
-                            fileUploadMapper.setfilerange(file);
-                        }
+//                        if(sourefile.getFile_permit()==2){
+//                            File file =null;
+//                            file=fileUploadMapper.findBypermit(file_permit);
+//                            file.setGroup_name(user.getGroup_name());
+////                            其实到上一步把整个判断结构放在fileUploadMapper.uploadfile(sourcefile);的前面应当也可以
+//                            fileUploadMapper.setfilerange(file);
+//                        }
                     }
                 }
 
