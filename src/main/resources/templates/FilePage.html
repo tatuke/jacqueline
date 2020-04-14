@@ -35,6 +35,7 @@
     <div class="row" style="height: 200px">
         <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 文件列表 </h2>
+            <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
             <hr>
             <!--分页展示内容-->
             <div class="media" th:each="file:${pagination.data}" style="margin-top: 22px">
@@ -47,7 +48,15 @@
                     <span style="margin-top: 10px;">
                         <h4 class="media-heading" style="font-size: 17px;">
                         <a th:text="${file.file_name}"></a>
-                            <a  th:if="${(file.file_permit==1 && session.user!=null) || (file.file_permit==2 && session.user.group_name.equals(user.))}" th:href="@{'/downloadFile/'+${file.id}}"> <span class="glyphicon glyphicon-download d-button"  aria-hidden="true" style=" float: right;size: A4"> </span> </a>
+<!--                            th:if="${(file.file_permit==1 && session.user!=null) || (file.file_permit==2 && session.user.group_name.equals(user.))}" -->
+                            <a th:if="${session.user!=null}" th:href="@{'/downloadFile/'+${file.id}}">
+                                <span th:if="${file.file_permit==1}" class="glyphicon glyphicon-download d-button"  aria-hidden="true" style=" float: right;size: A4"> </span>
+                                <span th:if="${file.file_permit==2 && session.user.group_name==file.group_name}" class="glyphicon glyphicon-download d-button"  aria-hidden="true" style=" float: right;size: A4"> </span>
+                                <span th:if="${file.file_permit==2 && session.user.group_name!=file.group_name}" class="glyphicon glyphicon-lock"  aria-hidden="true" style=" float: right;size: A4;color: lightgray"> </span>
+                            </a>
+                            <span th:if="${session.user==null}" class="glyphicon glyphicon-lock"  aria-hidden="true" style=" float: right;size: A4;color: lightgray;"> </span>
+
+
                         </h4>
                     </span>
                     <span><p th:text="${file.description}" style="font-size: 12px; color: #9d9d9d"></p></span>
@@ -62,25 +71,25 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pagination.showfirst}">
-                        <a href="/index?page=1" aria-label="Previous">
+                        <a href="/FilePage?page=1" aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showPre}">
-                        <a th:href="@{/index(page=${pagination.page - 1})}" aria-label="Previous">
+                        <a th:href="@{/FilePage(page=${pagination.page - 1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page:${pagination.pages}" th:class="${pagination.page==page}? 'active' : ''">
-                        <a th:href="@{/index(page=${page})}" th:text="${page}"></a>
+                        <a th:href="@{/FilePage(page=${page})}" th:text="${page}"></a>
                     </li>
                     <li th:if="${pagination.shownext}">
-                        <a th:href="@{/index(page=${pagination.page+1})}" aria-label="Next">
+                        <a th:href="@{/FilePage(page=${pagination.page+1})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showlast}">
-                        <a th:href="@{/index(page=${pagination.totalpage})}" aria-label="Next">
+                        <a th:href="@{/FilePage(page=${pagination.totalpage})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>

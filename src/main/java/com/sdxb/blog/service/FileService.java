@@ -64,12 +64,16 @@ pageDto.setData(filedtoList);
     public Filedto getbyid(int id){
         Filedto filedto =new Filedto();
         File file=fileUploadMapper.getbyId(id);
-        //dasd
+        //把第一个对象的所有属性复制到另一个对象中
         BeanUtils.copyProperties(file,filedto);
         User user = userMapper .findByName(file.getUser_name());
+
         filedto.setUser(user);
+//       不知道这个是否多余
+        filedto.setGroup_name(user.getGroup_name());
         return filedto;
     }
+
    public void increasedown(int id) {fileUploadMapper.updatedown(id);}
 //    public List<File> getbytag(int id,String result) {return fileUploadMapper.getbytag(id,result);}
 }

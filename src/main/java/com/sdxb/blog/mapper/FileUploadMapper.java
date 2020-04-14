@@ -7,6 +7,7 @@ package com.sdxb.blog.mapper;
 import com.sdxb.blog.entity.File;
 import com.sdxb.blog.entity.Question;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 //现在只包括插入和展示（全部）的语句
@@ -28,5 +29,9 @@ public interface FileUploadMapper {
     void updatedown(int id);
     @Select("select * from file where id=#{id}")
     File pullfile(int id);
+    @Update("update file set group_name=#{group_name} where file_permit=2")
+    void setfilerange(File file);
+    @Select("select * from file where file_permit=2")
+    File findBypermit(int file_permit);
 
 }

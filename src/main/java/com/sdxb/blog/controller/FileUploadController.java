@@ -116,7 +116,7 @@ public class FileUploadController {
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="D:\\copyproject\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
+            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
@@ -138,7 +138,13 @@ public class FileUploadController {
                         sourefile.setFile_name(fileName);
                         sourefile.setFile_source(Filesource);
                         fileUploadMapper.uploadfile(sourefile);
-
+                        if(sourefile.getFile_permit()==2){
+                            File file =null;
+                            file=fileUploadMapper.findBypermit(file_permit);
+                            file.setGroup_name(user.getGroup_name());
+//                            其实到上一步把整个判断结构放在fileUploadMapper.uploadfile(sourcefile);的前面应当也可以
+                            fileUploadMapper.setfilerange(file);
+                        }
                     }
                 }
 
@@ -169,7 +175,7 @@ public class FileUploadController {
             String token = cookie.getValue();
             user = userMapper.findBytoken(token);
             File file= fileUploadMapper.pullfile(id);
-            if((user != null && file.getFile_permit()== 1) || (file.getFile_permit()== 2 && user.getGroup_name().equals(userMapper.groupByname(file.getUser_name()) ) )){
+            if(user != null){
                 //增加下载数
                 Filedto filedto= fileService.getbyid(id);
 
