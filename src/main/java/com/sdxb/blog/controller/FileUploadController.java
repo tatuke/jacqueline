@@ -176,7 +176,7 @@ public class FileUploadController {
             String token = cookie.getValue();
             user = userMapper.findBytoken(token);
             File file= fileUploadMapper.pullfile(id);
-            if(user != null){
+
                 //增加下载数
                 Filedto filedto= fileService.getbyid(id);
 
@@ -234,11 +234,7 @@ public class FileUploadController {
 
                 }
 
-            }else{
-             //没有权限下载
-                map.put("msg","你没有权限下载此文件");
-                return "/FilePage";
-            }
+
         }
     }
     return "redirect:/FilePage";
