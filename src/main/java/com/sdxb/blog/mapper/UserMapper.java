@@ -29,4 +29,8 @@ public interface UserMapper {
     User findByName(String user_name);
     @Select("select group_name from user where name=#{user_name}")
     User groupByname(String user_name);
+//    global sereach
+    @Select("select * from user where nickname like concat ('%',#{nickname},'%')")
+    User Usersereach(String nickname);
+
 }
