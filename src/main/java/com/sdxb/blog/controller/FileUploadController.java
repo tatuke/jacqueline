@@ -116,13 +116,13 @@ public class FileUploadController {
             return "redirect:FilePage";
         }else{
             String fileName=sourcefile.getOriginalFilename();
-            String filepath="D:\\maixy commpont\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
+            String filepath="D:\\copyproject\\jacqueline\\src\\main\\resources\\static\\UploadFile\\";
             String Filesource= filepath+fileName;
 
 
             try {
                 FileUtil.uploadFile(sourcefile.getBytes(),filepath,fileName);
-                User user =null;
+                User user =new User();
                 File sourefile= new File();
                 Cookie[] cookies = request.getCookies();
                 for (Cookie cookie : cookies) {
@@ -161,11 +161,10 @@ public class FileUploadController {
     public String download(@PathVariable(name="id") int id,
                            Model model,
                            HttpServletRequest request,
-                           Map<String,Object> map,
                            HttpServletResponse response
                            ) throws Exception{
         //应当先获取用户的身份标识信息，与权限信息比对
-    User user = null;
+    User user = new User();
     Cookie[] cookies = request.getCookies();
     if(cookies==null){
         return "login";
