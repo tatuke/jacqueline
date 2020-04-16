@@ -65,6 +65,13 @@ public class QuestionService {
         pageDto.setData(questiondtoList);
         return pageDto;
     }
+    public PageDto list(String descrption,int page,int size){
+        PageDto pageDto= new PageDto();
+        int sumcount =questionMapper.countbydes(descrption);
+        pageDto.setPagination(sumcount,page,size);
+        //size*{page-1}
+
+    }
 
     public Questiondto getbyid(int id) {
         Questiondto questiondto=new Questiondto();
