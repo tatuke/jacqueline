@@ -67,10 +67,8 @@ pageDto.setData(filedtoList);
         //把第一个对象的所有属性复制到另一个对象中
         BeanUtils.copyProperties(file,filedto);
         User user = userMapper .findByName(file.getUser_name());
-
         filedto.setUser(user);
 //       不知道这个是否多余
-        filedto.setGroup_name(user.getGroup_name());
         return filedto;
     }
 
