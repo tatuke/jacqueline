@@ -49,4 +49,7 @@ public interface QuestionMapper {
 
     @Select("select * from question order by view_count desc limit 0,10")
     List<Question> gettopten();
+    @Select("select * from question where title like concat ('%',#{title},'%') and content_type=2")
+    Question getBytitle(String title);
+
 }
