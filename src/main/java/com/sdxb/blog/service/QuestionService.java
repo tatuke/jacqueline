@@ -70,6 +70,8 @@ public class QuestionService {
         int sumcount =questionMapper.countbydes(descrption);
         pageDto.setPagination(sumcount,page,size);
         //size*{page-1}
+        int offset =size * (page - 1 );
+        List<>
 
     }
 
