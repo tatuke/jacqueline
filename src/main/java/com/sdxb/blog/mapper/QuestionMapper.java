@@ -21,8 +21,12 @@ public interface QuestionMapper {
     @Select("select * from question where createid=#{userid} limit #{offset},#{size}")
     List<Question> listbyid(@Param("userid") int userid, @Param("offset") int offset, @Param("size") int size);
 //    模糊搜索，展现出列表
-    @Select("select * from question where description like concat ('%',#{description},'%') limit #{offset},#{size}")
+//    问答
+    @Select("select * from question where description like concat ('%',#{description},'%') and content_type=1 limit #{offset},#{size}")
     List<Question> listbydes(@Param("description") String description, @Param("offset") int offset,@Param("size") int size);
+//    文章
+    @Select("select * from question where description like concat ('%',#{description},'%') and content_type=2 limit #{offset},#{size}")
+    List<Question> nolistbydes(@Param("description") String description,@Param("offset") int offset,@Param("size") int size);
 
     @Select("select count(1) from question where createid=#{userid}")
     int countbyid(int userid);

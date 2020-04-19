@@ -2,10 +2,14 @@ package com.sdxb.blog.controller;
 
 import com.sdxb.blog.dto.NotificationDto;
 import com.sdxb.blog.dto.PageDto;
+import com.sdxb.blog.dto.UserDto;
 import com.sdxb.blog.entity.Question;
 import com.sdxb.blog.entity.User;
 import com.sdxb.blog.mapper.QuestionMapper;
 import com.sdxb.blog.mapper.UserMapper;
+import com.sdxb.blog.service.UserService;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import com.sdxb.blog.service.QuestionService;
@@ -19,37 +23,48 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class SereachController {
+public class SearchController {
 @Resource
     private UserMapper userMapper;
 @Resource
     private QuestionMapper questionMapper;
 @Resource
 private QuestionService questionService;
-    @GetMapping("/sereach/{choice}")
+@Resource
+private UserService userService;
+    @GetMapping("/search/{choice}")
     public String personal(@PathVariable(name = "choice")String choice,
                            Model model,
                            HttpServletRequest request,
+                           @RequestParam(name ="name") String name,
+                           @RequestParam(name ="description") String description,
                            @RequestParam(name = "page",defaultValue = "1")int page,
                            @RequestParam(name = "size",defaultValue = "10")int size){
         Cookie[] cookies = request.getCookies();
       //游客也可以查询
-
+//关键是这里取的值一定要一样才行，也就是只能从一个地方取
 
         if (choice.equals("questions")){
             model.addAttribute("section","questions");
-            model.addAttribute("sectionname","我的问答");
-            PageDto<Question> pagination=questionService.list(user.getId(),page,size);
+            model.addAttribute("sectionname","问答");
+//            这里取搜索框的值
+            PageDto<Question> pagination=questionService.listinsh(description,page,size);
             model.addAttribute("pagination", pagination);
-        }else if (choice.equals("information")){
-            model.addAttribute("section","information");
-            model.addAttribute("sectionname","我的消息");
-            PageDto<NotificationDto> notifications= notificationService.list(user.getId(),page,size);
-            model.addAttribute("notifications",notifications);
+        }else if (choice.equals("users")){
+            model.addAttribute("section","users");
+            model.addAttribute("sectionname","用户");
+//            PageDto<NotificationDto> notifications= notificationService.list(user.getId(),page,size);
+            PageDto<UserDto> pagination= userService.listser(name,page,size);
+          model.addAttribute("pagination", pagination);
+        }else if (choice.equals("publication")){
+            model.addAttribute("section","publications");
+            model.addAttribute("sectionname","文章");
+            PageDto<Question> pagination=questionService.listinnove(description,page,size);
+            model.addAttribute("pagination",pagination);
         }
 
 
-        return "personal";
+        return "search";
     }
 
 }

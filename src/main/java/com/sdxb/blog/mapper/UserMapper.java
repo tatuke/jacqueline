@@ -1,10 +1,10 @@
 package com.sdxb.blog.mapper;
 
+import com.sdxb.blog.entity.Question;
 import com.sdxb.blog.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -17,7 +17,12 @@ public interface UserMapper {
     User updateheadpic(String token);
     @Update("update user set headpic=#{headpic} where id=#{id}")
     void updateheadID(User user);
-
+    @Select("select * from user where user name like concat('%',#{name},'%') limit #{offset},#{size}")
+    List<User>listbyname(@Param("name") String name,@Param("offset") int offset,@Param("size") int size);
+    @Select("select count(1) from user")
+    int count();
+    @Select("select * from user order by name desc limit #{offset},#{size} ")
+    List<User> list(@Param("offset") int offset, @Param("size") int size);
     @Select("select  * from user where token=#{token}")
     User findBytoken(String token);
 

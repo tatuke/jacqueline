@@ -65,16 +65,48 @@ public class QuestionService {
         pageDto.setData(questiondtoList);
         return pageDto;
     }
-    public PageDto list(String descrption,int page,int size){
+    public PageDto listinsh(String descrption,int page,int size){
         PageDto pageDto= new PageDto();
-        int sumcount =questionMapper.countbydes(descrption);
-        pageDto.setPagination(sumcount,page,size);
+        int totalcount =questionMapper.countbydes(descrption);
+        pageDto.setPagination(totalcount,page,size);
         //size*{page-1}
         int offset =size * (page - 1 );
-        List<>
+        List<Question> questions = questionMapper.listbydes(descrption,offset,size);
+        List<Questiondto> questiondtoList=new ArrayList<>();
+        //这里可能没用，这里应该是显示问题带出来的拥有者相关信息
+        for(Question question:questions){
+            User user = userMapper.findById(question.getCreateid());
+            Questiondto questiondto =new Questiondto();
+            //还是把第一个对象的所有属性拷贝到第二个对象中，把 question的对象拷贝到dto中，一起带出信息
+            BeanUtils.copyProperties(question ,questiondto);
+            questiondto.setUser(user);
+            questiondtoList.add(questiondto);
 
+        }
+pageDto.setData(questiondtoList);
+        return pageDto;
     }
+    public PageDto listinnove(String descrption,int page,int size){
+        PageDto pageDto= new PageDto();
+        int totalcount =questionMapper.countbydes(descrption);
+        pageDto.setPagination(totalcount,page,size);
+        //size*{page-1}
+        int offset =size * (page - 1 );
+        List<Question> questions = questionMapper.nolistbydes(descrption,offset,size);
+        List<Questiondto> questiondtoList=new ArrayList<>();
+        //这里可能没用，这里应该是显示问题带出来的拥有者相关信息
+        for(Question question:questions){
+            User user = userMapper.findById(question.getCreateid());
+            Questiondto questiondto =new Questiondto();
+            //还是把第一个对象的所有属性拷贝到第二个对象中，把 question的对象拷贝到dto中，一起带出信息
+            BeanUtils.copyProperties(question ,questiondto);
+            questiondto.setUser(user);
+            questiondtoList.add(questiondto);
 
+        }
+        pageDto.setData(questiondtoList);
+        return pageDto;
+    }
     public Questiondto getbyid(int id) {
         Questiondto questiondto=new Questiondto();
         Question question=questionMapper.getbyId(id);
