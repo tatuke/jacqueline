@@ -7,11 +7,12 @@ import com.sdxb.blog.entity.Question;
 import com.sdxb.blog.entity.User;
 import com.sdxb.blog.mapper.UserMapper;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class UserService {
 @Resource
     UserMapper userMapper;

@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"><!--引入thymeleaf-->
 <meta name="referrer" content="no-referrer"/>
+
 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title th:text="${sectionname}"></title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <title>Search Result</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/signin.css"/>
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body class="body">
 <!--导入导航栏-->
-<div th:insert="~{navigation :: copy}"></div>
+<div th:insert="~{thinnav :: copy}"></div>
 <!--个人中心的页面布局-->
 <div class="container-fluid main">
+    <div class="column">
+<div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
+<div class="search-content">
+    <form class="search-form" th:action="@{'/search/'+${choice}}" method="get">
+<div class="input-container" style="width: 200px;height: 50px;text-align: center;line-height: 50px;margin: 0 auto">
+    <button class="search-button" style="padding: 0 15px;border: 1px solid;right: -1px;border-right: 0px" type="submit">
+        <svg class="glyphicon glyphicon-search" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" ></svg>
+    </button>
+    <input class="searchtext" type="text" name="description" value placeholder="search ResearchDto">
+</div>
+    </form>
+</div>
+</div>
+    </div>
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
             <h2><span th:text="${sectionname}"></span></h2>
@@ -45,25 +67,25 @@
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <li th:if="${pagination.showfirst}">
-                            <a th:href="@{'/personal/'+${section}(page=${1})}" aria-label="Previous">
+                            <a th:href="@{'/search/'+${section}(page=${1})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;&lt;</span>
                             </a>
                         </li>
                         <li th:if="${pagination.showPre}">
-                            <a th:href="@{'/personal/'+${section}(page=${pagination.page - 1})}" aria-label="Previous">
+                            <a th:href="@{'/search/'+${section}(page=${pagination.page - 1})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
                         <li th:each="page:${pagination.pages}" th:class="${pagination.page==page}? 'active' : ''">
-                            <a th:href="@{'/personal/'+${section}(page=${page})}" th:text="${page}"></a>
+                            <a th:href="@{'/search/'+${section}(page=${page})}" th:text="${page}"></a>
                         </li>
                         <li th:if="${pagination.shownext}">
-                            <a th:href="@{'/personal/'+${section}(page=${pagination.page + 1})}" aria-label="Next">
+                            <a th:href="@{'/search/'+${section}(page=${pagination.page + 1})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
                         <li th:if="${pagination.showlast}">
-                            <a th:href="@{'/personal/'+${section}(page=${pagination.totalpage})}" aria-label="Next">
+                            <a th:href="@{'/search/'+${section}(page=${pagination.totalpage})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;&gt;</span>
                             </a>
                         </li>

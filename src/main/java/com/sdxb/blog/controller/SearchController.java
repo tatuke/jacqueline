@@ -36,7 +36,6 @@ private UserService userService;
     public String personal(@PathVariable(name = "choice")String choice,
                            Model model,
                            HttpServletRequest request,
-                           @RequestParam(name ="name") String name,
                            @RequestParam(name ="description") String description,
                            @RequestParam(name = "page",defaultValue = "1")int page,
                            @RequestParam(name = "size",defaultValue = "10")int size){
@@ -54,7 +53,7 @@ private UserService userService;
             model.addAttribute("section","users");
             model.addAttribute("sectionname","用户");
 //            PageDto<NotificationDto> notifications= notificationService.list(user.getId(),page,size);
-            PageDto<UserDto> pagination= userService.listser(name,page,size);
+            PageDto<UserDto> pagination= userService.listser(description,page,size);
           model.addAttribute("pagination", pagination);
         }else if (choice.equals("publication")){
             model.addAttribute("section","publications");

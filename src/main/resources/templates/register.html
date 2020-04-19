@@ -24,29 +24,11 @@
 <style>
     body{
         background-color: #FFFFFF;
-        p
+
     }
 </style>
 <body>
-<div th:fragment="copy" style="background-color: #0F192A">
-    <nav class="navbar navbar-default"style="margin-bottom: 0px;background-color: #0F192A">
-        <div class="container-fluid" style="background-color: #0F192A">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="nav-top" >
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/index" style="margin-left: 50px;color:#FFFFFF;font-size: 25px;font-weight: 400">realstyle</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<div th:insert="~{thinnav :: copy}"></div>
 <div class="container">
 
     <form class="form-signin" action="/registercheck" method="post">
