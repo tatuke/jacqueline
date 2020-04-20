@@ -55,7 +55,7 @@ private UserService userService;
 //            PageDto<NotificationDto> notifications= notificationService.list(user.getId(),page,size);
             PageDto<UserDto> pagination= userService.listser(description,page,size);
           model.addAttribute("pagination", pagination);
-        }else if (choice.equals("publication")){
+        }else if (choice.equals("publications")){
             model.addAttribute("section","publications");
             model.addAttribute("sectionname","文章");
             PageDto<Question> pagination=questionService.listinnove(description,page,size);

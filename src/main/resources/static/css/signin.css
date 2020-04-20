@@ -92,7 +92,7 @@ width: auto;
     border-radius: 0rem;
     font-size: .875rem;
     text-align: center;
-    line-height: 1;
+    line-height: 1.28;
     overflow: hidden;
     margin: 0px;
     transition: 0.1s linear;
@@ -115,7 +115,7 @@ button{
     font-weight: 400;
     -webkit-appearance: none;
     outline: none;
-    width: 400px;
+    width: 800px;
     margin: 0;
     text-shadow: none;
 }

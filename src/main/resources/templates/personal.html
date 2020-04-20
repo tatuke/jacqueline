@@ -127,7 +127,7 @@
                 <a href="/personal/questions" th:class="${section=='questions'}?'list-group-item active' : 'list-group-item' ">
                     我的问答
                 </a>
-                <a href="/personal/information" th:class="${section=='information'}?'list-group-item active' : 'list-group-item' ">
+                <a href="/personal/information" th:class="${section==''}?'list-group-item' : 'list-group-item' ">
                     我的消息
                     <span class="badge" th:text="${session.unreadnum}"></span>
                 </a>
