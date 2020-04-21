@@ -62,5 +62,13 @@ public class indexController {
         model.addAttribute("topquestion",questions);
         return "index";
     }
-
+//    不在这里写隔膜跳转，在、search/choice 里面给个默认值即可
+//@GetMapping("/search/questions")
+//    public String search(HttpServletRequest request,
+//                         Model model,
+//                         @RequestParam(name="description") String description,
+//                         @RequestParam(name="page",defaultValue = "1") int page,
+//                         @RequestParam(name="size",defaultValue = "10") int size){
+//
+//}
 }

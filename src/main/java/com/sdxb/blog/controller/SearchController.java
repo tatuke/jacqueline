@@ -33,7 +33,7 @@ private QuestionService questionService;
 @Resource
 private UserService userService;
     @GetMapping("/search/{choice}")
-    public String personal(@PathVariable(name = "choice")String choice,
+    public String personal(@RequestParam(name = "choice",defaultValue = "questions")String choice,
                            Model model,
                            HttpServletRequest request,
                            @RequestParam(name ="description") String description,
