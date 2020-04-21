@@ -31,7 +31,7 @@
 <div class="input-container" style="width: 200px;height: 50px;text-align: center;line-height: 50px;margin: 0 auto">
     <span>
     <button class="search-button" style="padding: 0 15px;border: 1px solid;right: -1px;border-right: 0px;float: left" type="submit">
-        <svg class="glyphicon glyphicon-search icon-menu" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" ></svg>
+        <a class="glyphicon glyphicon-search icon-menu" aria-hidden="true"></a>
     </button>
     <input class="searchtext" type="text" name="description"  placeholder="search ResearchDto">
     </span>
@@ -43,13 +43,13 @@
 <!--    新的选择栏在这里-->
     <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
         <div class="list-group personal">
-            <a href="/personal/questions" th:class="${section=='questions'}?'list-group-item active' : 'list-group-item' ">
+            <a href="/search/questions" th:class="${section=='questions'}?'list-group-item active' : 'list-group-item' ">
                 问答
             </a>
-            <a href="/personal/publications" th:class="${section=='publications'}?'list-group-item' : 'list-group-item' ">
+            <a href="/search/publications" th:class="${section=='publications'}?'list-group-item' : 'list-group-item' ">
                 文章
             </a>
-            <a href="/personal/users" th:class="${section=='users'}?'list-group-item' : 'list-group-item' ">
+            <a href="/search/users" th:class="${section=='users'}?'list-group-item' : 'list-group-item' ">
                 用户
             </a>
         </div>
