@@ -27,16 +27,13 @@
     <div class="column">
 <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
 <div class="search-content">
-    <form class="search-form" th:action="@{'/search/'+${choice}}" method="get">
-<div class="input-container" style="width: 200px;height: 50px;text-align: center;line-height: 50px;margin: 0 auto">
-    <span>
-    <button class="search-button" style="padding: 0 15px;border: 1px solid;right: -1px;border-right: 0px;float: left" type="submit">
-        <a class="glyphicon glyphicon-search icon-menu" aria-hidden="true"></a>
-    </button>
-    <input class="searchtext" type="text" name="description"  placeholder="search ResearchDto">
-    </span>
-</div>
+    <form class="navbar-form navbar-middle" th:action="@{'/search/'+${chioce}}" method="get">
+        <div class="form-group">
+            <input type="text" class="form-control" size="50px" name="description" placeholder="讨论、社区文献">
+        </div>
+        <button type="submit" class="btn btn-default">search</button>
     </form>
+
 </div>
 </div>
     </div>

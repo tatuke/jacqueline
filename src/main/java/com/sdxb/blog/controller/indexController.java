@@ -10,6 +10,7 @@ import com.sdxb.blog.service.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
@@ -28,7 +29,19 @@ public class indexController {
     private QuestionService questionService;
     @Resource
     private NotificationMapper notificationMapper;
+//    官网访问主页
+@RequestMapping("/")
+public String mainface(Model model,
+                       @RequestParam(name = "page", defaultValue = "1") int page,
+                       @RequestParam(name = "size", defaultValue = "5") int size){
+    PageDto pagination = questionService.list(page, size);
+    model.addAttribute("pagination", pagination);
 
+    //获取阅读量最高的十篇问题
+    List<Question> questions= questionService.gettopten();
+    model.addAttribute("topquestion",questions);
+    return "index";
+}
     @GetMapping("/index")
     public String index(HttpServletRequest request, Model model,
                         @RequestParam(name = "page", defaultValue = "1") int page,
