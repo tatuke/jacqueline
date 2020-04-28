@@ -86,6 +86,8 @@
                         <span th:text="${notification.outercontent}"></span>
                     </a>
                     <span class="label label-danger" th:if="${notification.status==0}">未读</span>
+                    <span class="label label-success" th:if="${notification.status==1}">已读</span>
+                    <a th:href="@{'/deletenoti/'+${notification.id}}"> <span class="glyphicon glyphicon-trash" aria-hidden="true" style="float: right;size: A4"></span></a>
                     <br>
                     <span th:text="${#dates.format(notification.createtime,'yyyy-MM-dd')}"></span>
                     <hr>

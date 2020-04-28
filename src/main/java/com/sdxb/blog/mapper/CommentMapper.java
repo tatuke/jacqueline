@@ -33,6 +33,7 @@ public interface CommentMapper {
 
     @Select("select parent_id from comment where id=#{id}")
     int getparentidbyid(int id);
-
+    @Delete("delete from comment where id={id}")
+    void deletecomment(int id);
 
 }

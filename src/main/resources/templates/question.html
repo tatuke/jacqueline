@@ -94,18 +94,19 @@
                 <div class="media">
                     <div class="media-left">
                         <img class="media-object img-rounded picset"
-                             th:src="${comment.user.headpic}">
+                             th:src="${commentDto.user.headpic}">
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">
-                            <span th:text="${comment.user.name}"/>
+                            <span th:text="${commentDto.user.name}"/>
                             <div style="font-size: 15px; margin-top:5px;" th:text="${comment.content}">
                             </div>
-                            <!--点赞评论时间-->
+
 
                                 <!--回复按钮-->
-                                <span class="glyphicon glyphicon-comment icon" aria-hidden="true"
+                                <span class="glyphicon glyphicon-comment icon" aria-hidden="true" style=" size: A4"
                                       th:data-id="${comment.id}" th:data-check="1" onclick="secondcomment(this)" th:text="${comment.commentcount}"></span>
+                        </h4>
                                 <span th:text="${#dates.format(comment.createtime,'yyyy-MM-dd')}"></span>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12 collapse sub-comment"

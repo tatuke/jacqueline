@@ -27,5 +27,7 @@ public interface NotificationMapper {
 
     @Select("select outerid from notification where id=#{id}")
     int getouteridbyid(int id);
+    @Delete("delete from notification where id=#{id}")
+    void deletenoti(int id);
 
 }

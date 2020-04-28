@@ -11,6 +11,8 @@ public class NotificationDto {
     private User notifier;
     private String outercontent;
     private int questionid;
+    private int commentor;
+
 
     public int getQuestionid() {
         return questionid;
@@ -74,5 +76,13 @@ public class NotificationDto {
 
     public void setOutercontent(String outercontent) {
         this.outercontent = outercontent;
+    }
+
+    public int getCommentor() {
+        return commentor;
+    }
+
+    public void setCommentor(int commentor) {
+        this.commentor = commentor;
     }
 }

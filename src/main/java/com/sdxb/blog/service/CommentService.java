@@ -41,7 +41,7 @@ public class CommentService {
         }
         return lists;
     }
-//    这里是评论的点赞功能，但是应该不会用到
+//    这里是评论的点赞功能，但是应该不会用到,出现创建者指向错误的问题是这里
     public void thumbUp(int id){commentMapper.thumbup(id);}
     public CommentDto singleID(int id){
         CommentDto commentdto=new CommentDto();

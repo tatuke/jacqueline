@@ -33,5 +33,7 @@ public interface FileUploadMapper {
     void setfilerange(File file);
     @Select("select * from file where file_permit=2")
     File findBypermit(int file_permit);
+    @Delete("delete from file where id={id]")
+    void deletefile(int id);
 
 }
