@@ -60,7 +60,7 @@
                     <span><p th:text="${file.description}" style="font-size: 12px; color: #9d9d9d"></p></span>
                     <span class="common-list"><span th:text="${file.down}"/> 次下载 •
                         上传者：<span th:text="${file.user_name}"/>
-                        <a th:if="${session.user.name==file.user_name}" th:href="@{'/deletefie/'+${file.id}}"><span class="glyphicon glyphicon-trash" style="margin-left: 20px"></span></a>
+                        <a th:if="${session.user!=null && session.user.name==file.user_name}" th:href="@{'/deletefie/'+${file.id}}"><span class="glyphicon glyphicon-trash" style="margin-left: 20px"></span></a>
                         <span th:text="${#dates.format(file.create_time,'yyyy-MM-dd')}" style="float: right"></span></span>
                 </div>
             </div>
