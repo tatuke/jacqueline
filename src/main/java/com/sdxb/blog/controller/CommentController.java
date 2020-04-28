@@ -112,7 +112,7 @@ public class CommentController {
         List<CommentDto> commentDto=new ArrayList<>();
         //找到User
         Cookie[] cookies = request.getCookies();
-        User user = null;
+        User user = new User();
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")) {
                 String token = cookie.getValue();
@@ -134,18 +134,18 @@ public class CommentController {
     //点赞功能
 //  @ResponseBody
 //   @RequestMapping(value="/like/{id}",method = RequestMethod.GET)
-    @GetMapping("/commentthumb/{id}")
-    public String Commentthumb(@PathVariable(name="id") int id,
-                            Model model
-    ){
-
-        CommentDto commentDto=commentService.singleID(id);
-        commentService.thumbUp(id);
-        //更新视图
-      model.addAttribute("commentDto",commentDto);
-        return "question";
-    }
-
+//    @GetMapping("/commentthumb/{id}")
+//    public String Commentthumb(@PathVariable(name="id") int id,
+//                            Model model
+//    ){
+//
+//        CommentDto commentDto=commentService.singleID(id);
+//        commentService.thumbUp(id);
+//        //更新视图
+//      model.addAttribute("commentDto",commentDto);
+//        return "question";
+//    }
+//
 
 
 }

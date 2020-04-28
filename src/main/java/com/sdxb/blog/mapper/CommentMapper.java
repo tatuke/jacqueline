@@ -14,8 +14,8 @@ public interface CommentMapper {
 
     @Select("select * from comment where parent_id=#{id} order by createtime desc")
     List<Comment> getByid(int id);
-    @Select("select * from comment where id=#{id}")
- Comment singleID(int id);
+  @Select("select * from comment where id=#{id]")
+  Comment getById(int id);
 
     @Select("select * from comment where parent_id=#{id} and type=#{type} order by createtime desc")
     List<Comment> getCommentByid(@Param("id") int id, @Param("type") int type);

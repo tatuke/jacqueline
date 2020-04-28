@@ -70,7 +70,7 @@ public class QuestionService {
         int totalcount =questionMapper.countbydes(descrption);
         pageDto.setPagination(totalcount,page,size);
         //size*{page-1}
-        int offset =size * (page - 1 );
+        int offset =size * (page - 1);
         List<Question> questions = questionMapper.listbydes(descrption,offset,size);
         List<Questiondto> questiondtoList=new ArrayList<>();
         //这里可能没用，这里应该是显示问题带出来的拥有者相关信息
