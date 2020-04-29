@@ -14,7 +14,7 @@ public interface CommentMapper {
 
     @Select("select * from comment where parent_id=#{id} order by createtime desc")
     List<Comment> getByid(int id);
-  @Select("select * from comment where id=#{id]")
+  @Select("select * from comment where id=#{id}")
   Comment getById(int id);
 
     @Select("select * from comment where parent_id=#{id} and type=#{type} order by createtime desc")
@@ -33,7 +33,7 @@ public interface CommentMapper {
 
     @Select("select parent_id from comment where id=#{id}")
     int getparentidbyid(int id);
-    @Delete("delete from comment where id={id}")
+    @Delete("delete from comment where id=#{id}")
     void deletecomment(int id);
 
 }

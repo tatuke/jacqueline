@@ -36,6 +36,7 @@ public class logincontroller {
         user.setPassword(password);
         User newUser = userMapper.select(user);
         if (newUser != null) {
+            //如果找到了该用户，就创建cookies写入token
             String token = newUser.getToken();
             response.addCookie(new Cookie("token", token));
         } else {

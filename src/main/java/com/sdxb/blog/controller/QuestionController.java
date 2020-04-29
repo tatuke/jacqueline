@@ -87,7 +87,7 @@ public class QuestionController {
         questionService.increaselike(id);
         //更新视图
         model.addAttribute("questionDto",questiondto);
-        return "question";
+        return "redirect:/question/"+id;
     }
     @GetMapping("/nothumb/{id}")
     public String cancelthumb(@PathVariable(name="id") int id,
