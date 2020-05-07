@@ -139,28 +139,14 @@
                         <!--      权限页相关        -->
                         <div class="form-group" >
                             <label for="permit">添加权限</label>
-                            <input type="text" class="form-control" id="permit" autocomplete="off"
-                                   th:value="${file_permit}" name="file_permit" onclick="showselectpermission()">
+<!--                            <input type="text" class="form-control" id="permit" autocomplete="off"-->
+<!--                                   th:value="${file_permit}" name="file_permit" onclick="showselectpermission()">-->
+                            <select class="form-control" id="permit" name="file_permit">
+                                <option ></option>
+                            </select>
                         </div>
                         <!--权限列表页-->
-                        <div id="select-permits" style="display: none">
-                            <ul class="nav nav-tabs" role="tablist">
 
-                                <li role="presentation" th:each="category,status:${permits}" th:class="${status.first ? 'active':''}">
-                                    <a th:href="@{'#'+${category.permitListname}}" aria-controls="home"
-                                       role="tab" data-toggle="tab" th:text="${category.permitListname}">
-                                    </a>
-                                </li>
-
-                            </ul>
-                            <div class="tab-content" style="padding-top: 15px;">
-                                <div role="tabpanel" th:each="category,status:${permits}"
-                                     th:class="${status.first ? 'active tab-pane':'tab-pane'}" th:id="${category.permitListname}">
-                            <span class="label label-info" onclick="selectPermit(this)"
-                                  th:each="selectpermits:${category.permits}" th:text="${selectpermits}" th:data-tag="${selectpermits}"></span>
-                                </div>
-                            </div>
-                        </div>
                         <button type="submit" class="btn btn-success success" style="float: right">提交</button>
 
                           </form>
