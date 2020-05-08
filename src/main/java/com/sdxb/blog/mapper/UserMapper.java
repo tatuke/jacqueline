@@ -17,6 +17,8 @@ public interface UserMapper {
     User updateheadpic(String token);
     @Update("update user set headpic=#{headpic} where id=#{id}")
     void updateheadID(User user);
+    @Update("update user set group_name=#{group_name} where id=#{id}")
+    void updategroup(User user);
     @Select("select * from user where user name like concat('%',#{name},'%') limit #{offset},#{size}")
     List<User>listbyname(@Param("name") String name,@Param("offset") int offset,@Param("size") int size);
     @Select("select count(1) from user")

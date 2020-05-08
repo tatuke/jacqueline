@@ -60,12 +60,12 @@
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
                 <!--编辑-->
-                <a th:href="@{'/publish/'+${questionDto.id}}"
-                   th:if="${session.user!=null && session.user.id==questionDto.createid}">
-                <span class="glyphicon glyphicon-pencil question-menu" aria-hidden="true">
-                    编辑
-                </span>
-                </a>
+<!--                <a th:href="@{'/publish/'+${questionDto.id}}"-->
+<!--                   th:if="${session.user!=null && session.user.id==questionDto.createid}">-->
+<!--                <span class="glyphicon glyphicon-pencil question-menu" aria-hidden="true">-->
+<!--                    编辑-->
+<!--                </span>-->
+<!--                </a>-->
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-ss-12">
                 <!--删除-->
                 <!--这里应该把/publish/改掉改成执行删除的动作，这很明显是表示带参数的跳转-->

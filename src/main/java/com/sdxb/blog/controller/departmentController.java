@@ -39,6 +39,6 @@ public class departmentController {
         }
         String group_name = request.getParameter("group_name");
         String access_code = request.getParameter("access_code");
-
+            return "index";
     }
 }

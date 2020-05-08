@@ -105,6 +105,7 @@ public String publishnovel(Model model){
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
+//            content_type发布时的默认类型为2，即为文章内容
             @RequestParam(value = "content_type",defaultValue = "2") int content_type,
             @RequestParam(value = "id",defaultValue = "-2")int id,
             HttpServletRequest request,
