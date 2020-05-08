@@ -114,35 +114,25 @@
                                   <!--      标签页相关        -->
                     <div class="form-group" >
                         <label for="tag">添加标签</label>
-                        <input type="text" class="form-control" id="tag" autocomplete="off"
-                               th:value="${tag}" name="tag" onclick="showselecttag()">
+<!--                        <input type="text" class="form-control" id="tag" autocomplete="off"-->
+<!--                               th:value="${tag}" name="tag" onclick="showselecttag()">-->
+                        <select class="form-control" name="tag" id="tag">
+                            <option th:value="生物科学">生物科学</option>
+                            <option th:value="信息科学">信息科学</option>
+                            <option th:value="计算机科学">计算机科学</option>
+                            <option th:value="理论物理学">理论物理学</option>
+                        </select>
                     </div>
                     <!--标签页-->
-                    <div id="select-tags" style="display: none">
-                        <ul class="nav nav-tabs" role="tablist">
-
-                            <li role="presentation" th:each="category,status:${tags}" th:class="${status.first ? 'active':''}">
-                                <a th:href="@{'#'+${category.categoryname}}" aria-controls="home"
-                                   role="tab" data-toggle="tab" th:text="${category.categoryname}">
-                                </a>
-                            </li>
-
-                        </ul>
-                        <div class="tab-content" style="padding-top: 15px;">
-                            <div role="tabpanel" th:each="category,status:${tags}"
-                                 th:class="${status.first ? 'active tab-pane':'tab-pane'}" th:id="${category.categoryname}">
-                            <span class="label label-info" onclick="selectTag(this)"
-                                  th:each="selecttags:${category.tags}" th:text="${selecttags}" th:data-tag="${selecttags}"></span>
-                            </div>
-                        </div>
-                    </div>
+<!--                    可能没有必要全部列出来-->
                         <!--      权限页相关        -->
                         <div class="form-group" >
                             <label for="permit">添加权限</label>
 <!--                            <input type="text" class="form-control" id="permit" autocomplete="off"-->
 <!--                                   th:value="${file_permit}" name="file_permit" onclick="showselectpermission()">-->
                             <select class="form-control" id="permit" name="file_permit">
-                                <option ></option>
+                                <option th:value="1">向所有用户公开</option>
+                                <option th:value="2">仅限本机构</option>
                             </select>
                         </div>
                         <!--权限列表页-->
