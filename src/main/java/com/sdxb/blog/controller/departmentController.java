@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.CookieStore;
 
 @Controller
 public class departmentController {
@@ -62,14 +63,23 @@ public class departmentController {
                        @RequestParam(name="access_code") String access_code,
                        @PathVariable(name="group_name") String group_name,
                        Model model){
-        //还需要一条语句来从用户带出组织名称
-             Department department= departmentMapper.findbyname(group_name);
+        //还需要一条语句来从操作的用户那里带出组织名称
+        User user=null;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                String token = cookie.getValue();
+                user = userMapper.findBytoken(token);
+                Department department = departmentMapper.findbyname(user.getGroup_name());
 
 //             到底是哪种比较靠谱呢？
 //        Department department= new Department();
 //        department.getGroup_name(group_name);
-             departmentMapper.updatecode(department);
-             department.setAccess_code(access_code);
-return  "institution";
+                departmentMapper.updatecode(department);
+                department.setAccess_code(access_code);
+                return "institution";
+            }
+        }
+        return "institution";
     }
 }
