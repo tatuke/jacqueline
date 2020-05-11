@@ -66,10 +66,8 @@ $(function(){
             <!--分页展示内容-->
             <div class="media" th:each="question:${pagination.data}" style="margin-top: 22px">
                 <div class="media-left">
-
                         <img class="media-object img-circle picset"
                              th:src="${question.user.headpic}">
-
                 </div>
                 <div class="media-body">
                     <span style="margin-top: 10px;">

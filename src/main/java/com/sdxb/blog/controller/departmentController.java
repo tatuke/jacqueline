@@ -63,7 +63,7 @@ public class departmentController {
                        @RequestParam(name="access_code") String access_code,
                        @PathVariable(name="group_name") String group_name,
                        Model model){
-        //还需要一条语句来从操作的用户那里带出组织名称
+        //还需要一条语句来从操作的用户那里带出组织名称，不是这里而是一开始的查看那里
         User user=null;
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
