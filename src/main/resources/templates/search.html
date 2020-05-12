@@ -10,6 +10,7 @@
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/signin.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +28,7 @@
     <div class="column">
 <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
 <div class="search-content">
-    <form class="navbar-form navbar-middle" th:action="@{'/search/'+${chioce}}" method="get">
+    <form class="navbar-form navbar-middle" th:action="@{'/search/'+${choice}}" method="get">
         <div class="form-group">
             <input type="text" class="form-control" size="50px" name="description" placeholder="讨论、社区文献">
         </div>
@@ -39,14 +40,14 @@
     </div>
 <!--    新的选择栏在这里-->
     <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
-        <div class="list-group personal">
+        <div class="list-group search">
             <a href="/search/questions" th:class="${section=='questions'}?'list-group-item active' : 'list-group-item' ">
                 问答
             </a>
-            <a href="/search/publications" th:class="${section=='publications'}?'list-group-item' : 'list-group-item' ">
+            <a href="/search/publications" th:class="${section=='publications'}?'list-group-item active' : 'list-group-item' ">
                 文章
             </a>
-            <a href="/search/users" th:class="${section=='users'}?'list-group-item' : 'list-group-item' ">
+            <a href="/search/users" th:class="${section=='users'}?'list-group-item active' : 'list-group-item' ">
                 用户
             </a>
         </div>
@@ -55,7 +56,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-ss-12">
             <h2><span th:text="${sectionname}"></span></h2>
             <hr>
-            <!--搜索问题-->
+            <!--我的问题-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12" th:if="${section}=='questions'">
                 <div class="media" th:each="question:${pagination.data}">
                     <div class="media-left">
@@ -66,7 +67,7 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">
-                            <a th:href="@{'/question/'+${question.id}}" th:text="title"></a>
+                            <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                         </h4>
                         <span>
                         <a th:text="${question.description}" th:href="@{'/question/'+${question.id}}"></a>
@@ -105,8 +106,56 @@
                     </ul>
                 </nav>
             </div>
-<!--           用户结果页面 -->
-        </div>
+            <!--我的文章-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12" th:if="${section}=='novels'">
+                <div class="media" th:each="question:${pagination.data}">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-circle picset"
+                                 th:src="${question.user.headpic}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                        </h4>
+                        <span>
+                        <a th:text="${question.description}" th:href="@{'/question/'+${question.id}}"></a>
+                    </span>
+                        <br>
+                        <span class="common-list"><span th:text="${question.comment_count}"/> 个评论 • <span
+                                th:text="${question.view_count}"/> 次浏览 • <span th:text="${question.like_count}"/>个点赞 <span
+                                th:text="${#dates.format(question.createtime,'dd MMMM yyyy')}"></span></span>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li th:if="${pagination.showfirst}">
+                            <a th:href="@{'/search/'+${section}(page=${1})}" aria-label="Previous">
+                                <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                        </li>
+                        <li th:if="${pagination.showPre}">
+                            <a th:href="@{'/search/'+${section}(page=${pagination.page - 1})}" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <li th:each="page:${pagination.pages}" th:class="${pagination.page==page}? 'active' : ''">
+                            <a th:href="@{'/search/'+${section}(page=${page})}" th:text="${page}"></a>
+                        </li>
+                        <li th:if="${pagination.shownext}">
+                            <a th:href="@{'/search/'+${section}(page=${pagination.page + 1})}" aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <li th:if="${pagination.showlast}">
+                            <a th:href="@{'/search/'+${section}(page=${pagination.totalpage})}" aria-label="Next">
+                                <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 <!--        上方的条件导航栏-->
     </div>
 </div>
