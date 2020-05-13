@@ -57,7 +57,7 @@
             <hr>
             <!--我的问题-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12" th:if="${section}=='questions'">
-                <div class="media" th:each="question:${pagination.data}">
+                <div class="media" th:each="question:${paginationQ.data}">
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-circle picset" style="width: 40px"
@@ -78,27 +78,27 @@
                     </div>
                 </div>
                 <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li th:if="${pagination.showfirst}">
+                    <ul class="paginationQ">
+                        <li th:if="${paginationQ.showfirst}">
                             <a th:href="@{'/search/'+${section}(page=${1})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;&lt;</span>
                             </a>
                         </li>
-                        <li th:if="${pagination.showPre}">
-                            <a th:href="@{'/search/'+${section}(page=${pagination.page - 1})}" aria-label="Previous">
+                        <li th:if="${paginationQ.showPre}">
+                            <a th:href="@{'/search/'+${section}(page=${paginationQ.page - 1})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
-                        <li th:each="page:${pagination.pages}" th:class="${pagination.page==page}? 'active' : ''">
+                        <li th:each="page:${paginationQ.pages}" th:class="${paginationQ.page==page}? 'active' : ''">
                             <a th:href="@{'/search/'+${section}(page=${page})}" th:text="${page}"></a>
                         </li>
-                        <li th:if="${pagination.shownext}">
-                            <a th:href="@{'/search/'+${section}(page=${pagination.page + 1})}" aria-label="Next">
+                        <li th:if="${paginationQ.shownext}">
+                            <a th:href="@{'/search/'+${section}(page=${paginationQ.page + 1})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
-                        <li th:if="${pagination.showlast}">
-                            <a th:href="@{'/search/'+${section}(page=${pagination.totalpage})}" aria-label="Next">
+                        <li th:if="${paginationQ.showlast}">
+                            <a th:href="@{'/search/'+${section}(page=${paginationQ.totalpage})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;&gt;</span>
                             </a>
                         </li>
@@ -107,7 +107,7 @@
             </div>
             <!--我的文章-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-ss-12" th:if="${section}=='novels'">
-                <div class="media" th:each="question:${pagination.data}">
+                <div class="media" th:each="question:${paginationP.data}">
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-circle picset"
@@ -128,27 +128,27 @@
                     </div>
                 </div>
                 <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li th:if="${pagination.showfirst}">
+                    <ul class="paginationP">
+                        <li th:if="${paginationP.showfirst}">
                             <a th:href="@{'/search/'+${section}(page=${1})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;&lt;</span>
                             </a>
                         </li>
-                        <li th:if="${pagination.showPre}">
-                            <a th:href="@{'/search/'+${section}(page=${pagination.page - 1})}" aria-label="Previous">
+                        <li th:if="${paginationP.showPre}">
+                            <a th:href="@{'/search/'+${section}(page=${paginationP.page - 1})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
-                        <li th:each="page:${pagination.pages}" th:class="${pagination.page==page}? 'active' : ''">
+                        <li th:each="page:${paginationP.pages}" th:class="${paginationP.page==page}? 'active' : ''">
                             <a th:href="@{'/search/'+${section}(page=${page})}" th:text="${page}"></a>
                         </li>
-                        <li th:if="${pagination.shownext}">
-                            <a th:href="@{'/search/'+${section}(page=${pagination.page + 1})}" aria-label="Next">
+                        <li th:if="${paginationP.shownext}">
+                            <a th:href="@{'/search/'+${section}(page=${paginationP.page + 1})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
-                        <li th:if="${pagination.showlast}">
-                            <a th:href="@{'/search/'+${section}(page=${pagination.totalpage})}" aria-label="Next">
+                        <li th:if="${paginationP.showlast}">
+                            <a th:href="@{'/search/'+${section}(page=${paginationP.totalpage})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;&gt;</span>
                             </a>
                         </li>
