@@ -60,7 +60,7 @@
                 <div class="media" th:each="question:${pagination.data}">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-circle picset"
+                            <img class="media-object img-circle picset" style="width: 40px"
                                  th:src="${question.user.headpic}">
                         </a>
                     </div>
@@ -158,6 +158,6 @@
 <!--        上方的条件导航栏-->
     </div>
 </div>
-
+</div>
 </body>
 </html>
