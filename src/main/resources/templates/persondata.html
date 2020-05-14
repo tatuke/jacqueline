@@ -41,11 +41,11 @@
         <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 个人资料 </h2>
         <hr>
         <div class="headpic">
-            <img src="../images/personalimage/likeher.jpg" id="img-txz"  style="width: 20rem" class="img-circle"/>
+            <img th:src="${user.headpic}" id="img-txz"  style="width: 20rem" class="img-circle"/>
             <form enctype="multipart/form-data" method="post" action="/modifypic">
-
-
             <input type="file" accept="image/*" id="file-txz" name="file" onchange="upload('#file-txz', '#img-txz');"  class="fileInput"  value=""  />
+                <input type="text" name="name" id="name">
+                <input type="text" name="nickname" id="nickname">
             <input type="submit" value="确定">
           </form>
         </div>

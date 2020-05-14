@@ -15,6 +15,7 @@
 
 .picset {
     width: 40px;
+   height: 40px !important;
 }
 
 .common-list {

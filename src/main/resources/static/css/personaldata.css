@@ -14,10 +14,12 @@
 }
 .picset{
     width: 20rem;
+    height: 20rem;
 }
 .img-circle{
     border-radius: 50%;
-    width: 20rem;
+    width: 40px;
+    height: 40px;
 }
 
 
